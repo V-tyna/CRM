@@ -1,14 +1,8 @@
-const express = require('express');
+const app = require('./app');
 
-const { PORT } = require('./configs/keys');
+const { DEFAULT_PORT } = require('./configs/keys');
 
-const app = express();
-
-app.get('/', (req, res, next) => {
-  res.status(200).json({
-    message: 'Works.'
-  });
-});
+const PORT = process.env.PORT || DEFAULT_PORT;
 
 app.listen(PORT, () => {
   console.log(`Server is running at port: ${PORT}`);
