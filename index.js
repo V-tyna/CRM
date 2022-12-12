@@ -1,6 +1,6 @@
 const app = require('./app');
 
-const { DEFAULT_PORT } = require('./configs/keys');
+const { DEFAULT_PORT } = require('./configs/keys.shared');
 
 const PORT = process.env.PORT || DEFAULT_PORT;
 

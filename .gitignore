@@ -1,2 +1,2 @@
 node_modules
-configs/secure_keys
+configs/keys.dev.js
