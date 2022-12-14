@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>CRM app</span>
+  <span class="example-spacer"></span>
+  <button routerLink="/login" routerLinkActive="active-auth" [routerLinkActiveOptions]="{exact: true}" mat-fab extended color="accent" class="nav-btn">Sign in</button>
+  <button routerLink="/signup" routerLinkActive="active-auth" [routerLinkActiveOptions]="{exact: true}" mat-fab extended color="accent" class="nav-btn">Sign up</button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>

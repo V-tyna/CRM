@@ -1,0 +1,32 @@
+<div class="example-container auth-page-container">
+  <form class="form-auth-container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <h1 class="form-title">Please, sign in:</h1>
+    <mat-form-field appearance="fill" class="input-container">
+      <mat-label>Enter your email</mat-label>
+      <input
+        matInput
+        placeholder="name@example.com"
+        formControlName="email"
+        required
+      />
+      <mat-error *ngIf="loginForm.get('email')?.invalid">{{
+        errorHandler('email')
+      }}</mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="input-container">
+      <mat-label>Enter your password</mat-label>
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        required
+        minlength="6"
+        maxlength="56"
+      />
+      <mat-error *ngIf="loginForm.get('password')?.invalid">{{
+        errorHandler('password')
+      }}</mat-error>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="btn-submit" type="submit" disabled="{{loginForm.invalid}}">Sign in</button>
+  </form>
+</div>
