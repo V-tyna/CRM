@@ -1,5 +1,5 @@
 <div class="example-container auth-page-container">
-  <form class="form-auth-container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form class="form-auth-container" [formGroup]="loginForm" #formDirective="ngForm" (ngSubmit)="onSubmit(formDirective)">
     <h1 class="form-title">Please, sign in:</h1>
     <mat-form-field appearance="fill" class="input-container">
       <mat-label>Enter your email</mat-label>
@@ -9,11 +9,11 @@
         formControlName="email"
         required
       />
-      <mat-error *ngIf="loginForm.get('email')?.invalid">{{
+      <mat-error *ngIf="loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched">{{
         errorHandler('email')
       }}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill" class="input-container">
+    <mat-form-field appearance="fill" [hideRequiredMarker]="true" class="input-container">
       <mat-label>Enter your password</mat-label>
       <input
         matInput
@@ -23,7 +23,7 @@
         minlength="6"
         maxlength="56"
       />
-      <mat-error *ngIf="loginForm.get('password')?.invalid">{{
+      <mat-error *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched">{{
         errorHandler('password')
       }}</mat-error>
     </mat-form-field>

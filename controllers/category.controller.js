@@ -5,6 +5,7 @@ const Position = require('../models/position.model');
 module.exports = {
 	getAll: async (req, res) => {
 		try {
+			console.log('User: ', req.user)
 			const categories = await Category.find({
 				user: req.user.id,
 			});

@@ -1,6 +1,7 @@
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { catchError, Observable, throwError } from 'rxjs';
 
 import { AuthService } from './auth.service';
 
@@ -8,7 +9,8 @@ import { AuthService } from './auth.service';
 
 export class AuthInterceptorService implements HttpInterceptor {
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -17,9 +19,24 @@ export class AuthInterceptorService implements HttpInterceptor {
         setHeaders: {
           Authorization: this.authService.getToken()!
         }
-      }); 
+      });
     }
-    return next.handle(req)
+    return next.handle(req).pipe(
+      catchError((e: HttpErrorResponse): Observable<HttpResponse<any>> => {
+        return this.handleExpiresToken(e);
+      })
+    )
   }
-  
+
+  private handleExpiresToken(e: HttpErrorResponse): Observable<HttpResponse<any>> {
+    if (e.status === 401) {
+      this.router.navigate(['/login'], {
+        queryParams: {
+          tokenExpired: true
+        }
+      });
+    }
+    return throwError(() => new Error(e.error.message));
+  }
+
 }

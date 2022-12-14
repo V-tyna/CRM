@@ -7,14 +7,14 @@ interface ErrorMessage {
 export const getErrorMessage = (filedName: string | readonly (string | number)[], form: FormGroup): string => {
   const emailErrorMessages: ErrorMessage = {
     email: 'Not a valid email',
-    required: 'You must enter an email.'
+    required: 'Field email can\'t be empty.'
 }
 
   const passwordErrorMessages: ErrorMessage = {
       minlength: 'Password length should be minimum 6 characters.',
       maxlength: 'Password length should be maximum 56 characters.',
       pattern: 'Your password must contain at least one uppercase, one lowercase, and one number',
-      required: 'You must enter a password.'
+      required: 'Field password can\'t be empty.'
   }
 
   let errorObj: ErrorMessage = {};

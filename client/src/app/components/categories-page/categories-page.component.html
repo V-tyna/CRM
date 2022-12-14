@@ -1,0 +1,23 @@
+<mat-toolbar>
+  <span>Categories: </span>
+  <span class="example-spacer"></span>
+  <button
+    routerLink="/categories/new"
+    mat-mini-fab
+    color="accent"
+    #tooltip="matTooltip"
+    matTooltip="Add category"
+    matTooltipPosition="left"
+    matTooltipHideDelay="2000"
+  >
+    <mat-icon>adds</mat-icon>
+  </button>
+</mat-toolbar>
+<div *ngIf="categories$ | async as categories; else loader">
+  <mat-card *ngFor="let category of categories" routerLink="/{{ category._id }}">
+    <mat-card-content>{{ category.name }}</mat-card-content>
+  </mat-card>
+</div>
+<ng-template #loader>
+  <mat-spinner class="loader"></mat-spinner>
+</ng-template>

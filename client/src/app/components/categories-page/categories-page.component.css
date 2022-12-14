@@ -1,0 +1,12 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+mat-card-content:hover {
+  background-color: #ff408041;
+}
+
+.loader {
+  width: 200px;
+  height: 200px;
+}
