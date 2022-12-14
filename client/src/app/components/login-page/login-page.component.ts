@@ -4,12 +4,14 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { ErrorPopupService } from 'src/app/shared/services/error-popup.service';
 import { getErrorMessage } from '../../utils/error-form-handlers';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.css']
+  styleUrls: ['./login-page.component.css'],
+  providers: [ErrorPopupService]
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
   public loginForm = new FormGroup({
@@ -25,15 +27,18 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private errorPopupService: ErrorPopupService
   ) {}
 
   public ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
       if (params['registered']) {
-       'Now you can login in system by using your data.'
+        this.errorPopupService.showMessage('Now you can login in system by using your data.');
       } else if(params['accessDenied']) {
-        'You should sign up first.'
+        this.errorPopupService.showMessage('You should sign up first.');
+      } else if(params['tokenExpired']) {
+        this.errorPopupService.showMessage('The token has expired.');
       }
     });
   }
@@ -45,9 +50,12 @@ export class LoginPageComponent implements OnInit, OnDestroy {
   public onSubmit(): void  {
     const { email, password } = this.loginForm.value;
     if (email && password) {
-      this.loginSubscription = this.authService.login({ email, password }).subscribe(
-        () => this.router.navigate(['/overview'])
-      );
+      this.loginSubscription = this.authService.login({ email, password }).subscribe({
+        next: () => this.router.navigate(['/overview']),
+        error: (e) => {
+          this.errorPopupService.showErrorMessage(e);
+        }
+      });
     }
     this.loginForm.reset();
   }
