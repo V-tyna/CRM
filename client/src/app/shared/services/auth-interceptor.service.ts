@@ -36,7 +36,11 @@ export class AuthInterceptorService implements HttpInterceptor {
         }
       });
     }
-    return throwError(() => new Error(e.error.message));
+    return throwError(() => new Error(e.error.message)).pipe(
+      catchError((e: HttpErrorResponse): Observable<HttpResponse<any>> => {
+        return this.handleExpiresToken(e);
+      })
+    )
   }
 
 }
