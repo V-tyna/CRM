@@ -14,10 +14,18 @@
   </button>
 </mat-toolbar>
 <div *ngIf="categories$ | async as categories; else loader">
-  <mat-card *ngFor="let category of categories" routerLink="/{{ category._id }}">
-    <mat-card-content>{{ category.name }}</mat-card-content>
-  </mat-card>
+  <div *ngIf="categories.length; else noCategories">
+    <mat-card
+      *ngFor="let category of categories"
+      routerLink="/categories/{{ category._id }}"
+    >
+      <mat-card-content>{{ category.name }}</mat-card-content>
+    </mat-card>
+  </div>
 </div>
 <ng-template #loader>
   <mat-spinner class="loader"></mat-spinner>
+</ng-template>
+<ng-template #noCategories>
+  <p>There is no categories yet...</p>
 </ng-template>

@@ -4,16 +4,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { ErrorPopupService } from 'src/app/shared/services/popup.service';
+import { PopupService } from 'src/app/shared/services/popup.service';
 import { getErrorMessage } from 'src/app/utils/error-form-handlers';
 
 @Component({
   selector: 'app-signup-page',
   templateUrl: './signup-page.component.html',
   styleUrls: ['./signup-page.component.css'],
-  providers: [ErrorPopupService]
+  providers: [PopupService]
 })
 export class SignupPageComponent implements OnInit, OnDestroy {
+  public hide =true;
   public signupForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -29,7 +30,7 @@ export class SignupPageComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private errorPopupService: ErrorPopupService
+    private popupService: PopupService
   ) {}
 
   public ngOnInit(): void {
@@ -50,7 +51,7 @@ export class SignupPageComponent implements OnInit, OnDestroy {
           }
         }),
         error: (e) => {
-          this.errorPopupService.showMessage(e);
+          this.popupService.showMessage(e);
         }
     });
     }

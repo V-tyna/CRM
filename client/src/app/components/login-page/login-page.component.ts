@@ -4,16 +4,17 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { AuthService } from 'src/app/shared/services/auth.service';
-import { ErrorPopupService } from 'src/app/shared/services/popup.service';
+import { PopupService } from 'src/app/shared/services/popup.service';
 import { getErrorMessage } from '../../utils/error-form-handlers';
 
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.css'],
-  providers: [ErrorPopupService]
+  providers: [PopupService]
 })
 export class LoginPageComponent implements OnInit, OnDestroy {
+  public hide = true;
   public loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -28,17 +29,17 @@ export class LoginPageComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute,
-    private errorPopupService: ErrorPopupService
+    private popupService: PopupService
   ) {}
 
   public ngOnInit(): void {
     this.route.queryParams.subscribe((params: Params) => {
       if (params['registered']) {
-        this.errorPopupService.showMessage('Now you can login in system by using your data.');
+        this.popupService.showMessage('Now you can login in system by using your data.');
       } else if (params['accessDenied']) {
-        this.errorPopupService.showMessage('You should sign in first.');
+        this.popupService.showMessage('You should sign in first.');
       } else if (params['tokenExpired']) {
-        this.errorPopupService.showMessage('The token has expired.');
+        this.popupService.showMessage('The token has expired.');
       }
     });
   }
@@ -55,7 +56,7 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         error: (e) => {
           console.log('here', e);
 
-          this.errorPopupService.showMessage(e);
+          this.popupService.showMessage(e);
         }
       });
     }

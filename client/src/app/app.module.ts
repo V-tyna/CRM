@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -27,6 +28,7 @@ import { SignupPageComponent } from './components/signup-page/signup-page.compon
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
+import { CategoryFormPageComponent } from './components/categories-page/category-form-page/category-form-page.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
     AnalyticsPageComponent,
     HistoryPageComponent,
     OrderPageComponent,
-    CategoriesPageComponent
+    CategoriesPageComponent,
+    CategoryFormPageComponent
   ],
   imports: [
     AppRoutingModule,
@@ -48,6 +51,7 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
+    MatDialogModule,
     MatIconModule,
     MatInputModule,
     MatMenuModule,

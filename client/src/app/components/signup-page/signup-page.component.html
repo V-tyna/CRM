@@ -13,16 +13,20 @@
         errorHandler('email')
       }}</mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill" class="input-container">
+    <mat-form-field appearance="fill" [hideRequiredMarker]="true" class="input-container">
       <mat-label>Enter your password</mat-label>
       <input
         matInput
+        [type]="hide ? 'password' : 'text'"
         type="password"
         formControlName="password"
         required
         minlength="6"
         maxlength="56"
-      />
+      >
+      <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
       <mat-error *ngIf="signupForm.controls['password']?.invalid && signupForm.controls['password']?.touched">{{
         errorHandler('password')
       }}</mat-error>

@@ -15,7 +15,7 @@ export class MainLayoutComponent {
     { url: '/analytics', name: 'Analytics' },
     { url: '/history', name: 'History' },
     { url: '/order', name: 'Order' },
-    { url: '/categories', name: 'Products' }
+    { url: '/categories', name: 'Categories' }
   ];
   public isOpenedIconMenu = false;
 
