@@ -29,6 +29,7 @@ import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.co
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
 import { CategoryFormPageComponent } from './components/categories-page/category-form-page/category-form-page.component';
+import { PositionDialogComponent } from './components/categories-page/position-dialog/position-dialog.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CategoryFormPageComponent } from './components/categories-page/category
     HistoryPageComponent,
     OrderPageComponent,
     CategoriesPageComponent,
-    CategoryFormPageComponent
+    CategoryFormPageComponent,
+    PositionDialogComponent
   ],
   imports: [
     AppRoutingModule,

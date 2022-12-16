@@ -1,0 +1,21 @@
+<div class="dialog-form-container">
+  <div class="dialog-title">
+    <h1>Add position:</h1>
+    <button type="button" (click)="closeDialogForm()">x</button>
+  </div>
+  <form
+    class="position-form"
+    [formGroup]="positionDialogForm"
+    #positionDirective="ngForm"
+    (ngSubmit)="onSubmit(positionDirective)"
+  >
+    <div class="inputs-container">
+      <input type="text" formControlName="name">
+      <input type="text" formControlName="cost">
+    </div>
+    <div class="button-are">
+      <button type="button" (click)="cleanForm(positionDirective)">Clean</button>
+      <button type="submit">Add position</button>
+    </div>
+  </form>
+</div>
