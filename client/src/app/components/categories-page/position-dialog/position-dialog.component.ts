@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import { Position } from 'src/app/models/position.model';
 import { PositionService } from 'src/app/shared/services/position.service';
 
 @Component({
@@ -9,12 +11,13 @@ import { PositionService } from 'src/app/shared/services/position.service';
   styleUrls: ['./position-dialog.component.css']
 })
 
-export class PositionDialogComponent implements OnInit {
+export class PositionDialogComponent implements OnInit, OnDestroy {
   public positionDialogForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     cost: new FormControl('', [Validators.required])
   });
   public categoryId?: string;
+  public subscription?: Subscription;
 
   constructor(
     public dialogRef: MatDialogRef<PositionDialogComponent>,
@@ -29,9 +32,8 @@ export class PositionDialogComponent implements OnInit {
     const { name, cost } = this.positionDialogForm.value;
     const user = JSON.parse(localStorage.getItem('userData')!).id as string;
     if (name && cost && user && this.categoryId) {
-      const position = { name, cost: +cost, user, category: this.categoryId };
-      console.log('POSITION: ', position);
-      //this.positionService.createPosition(position);
+      const position = { name, cost: +cost, category: this.categoryId };
+      this.subscription = this.positionService.createPosition(position).subscribe();
     }
     this.cleanForm(form);
     this.closeDialogForm();
@@ -44,6 +46,10 @@ export class PositionDialogComponent implements OnInit {
   public cleanForm(form: FormGroupDirective) {
     this.positionDialogForm.reset();
     form.resetForm();
+  }
+
+  ngOnDestroy(): void {
+      this.subscription?.unsubscribe();
   }
 
 }

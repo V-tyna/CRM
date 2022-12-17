@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Position } from 'src/app/models/position.model';
 import { PositionService } from 'src/app/shared/services/position.service';
 import { PositionDialogComponent } from '../position-dialog/position-dialog.component';
@@ -11,8 +11,9 @@ import { PositionDialogComponent } from '../position-dialog/position-dialog.comp
   styleUrls: ['./category-form-page.component.css'],
 })
 
-export class CategoryFormPageComponent implements OnInit {
+export class CategoryFormPageComponent implements OnInit, OnDestroy {
   public positions$?: Observable<Position[]>;
+  public routeSub?: Subscription;
 
   constructor(
     public dialog: MatDialog,
@@ -21,15 +22,10 @@ export class CategoryFormPageComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    this.positions$ = new Observable<Position[]>((sub) => {
-      sub.next([{ name: 'Coffee', cost: 1.99, user: 'user', category: 'drinks' },
-      { name: 'Very long name something really long', cost: 2.99, user: 'user', category: 'drinks' }
-      ]);
-    });
-
-    this.route.params.subscribe((params: Params) => {
+    this.routeSub = this.route.params.subscribe((params: Params) => {
       this.positionService.setCategoryId(params['id']);
     });
+    this.positions$ = this.positionService.getAllPositions();
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -39,5 +35,9 @@ export class CategoryFormPageComponent implements OnInit {
       enterAnimationDuration,
       exitAnimationDuration,
     });
+  }
+
+  ngOnDestroy(): void {
+      this.routeSub?.unsubscribe();
   }
 }

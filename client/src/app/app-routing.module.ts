@@ -23,12 +23,11 @@ const routes: Routes = [
     ]
   },
   {
-    // path: appPaths['empty'], component: MainLayoutComponent, canActivate: [AuthGuardService], children: [
-    path: appPaths['empty'], component: MainLayoutComponent, children: [
+    path: appPaths['empty'], component: MainLayoutComponent, canActivate: [AuthGuardService], children: [
       { path: appPaths['analytics'], component: AnalyticsPageComponent },
       { path: appPaths['categories'], component: CategoriesPageComponent },
-      { path: appPaths['categoriesId'], component: CategoryFormPageComponent },
       { path: appPaths['categoriesNew'], component: CategoryFormPageComponent },
+      { path: appPaths['categoriesId'], component: CategoryFormPageComponent },
       { path: appPaths['history'], component: HistoryPageComponent },
       { path: appPaths['order'], component: OrderPageComponent },
       { path: appPaths['overview'], component: OverviewPageComponent },

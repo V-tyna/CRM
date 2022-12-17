@@ -88,7 +88,7 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 400px;
+  min-width: 880px;
   color: #3f51b5;
   font: 1.1rem sans-serif;
 }
