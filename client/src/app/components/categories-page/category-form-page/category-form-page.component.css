@@ -3,16 +3,19 @@ h1 {
 }
 
 .category-form-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   align-content: center;
+  max-width: 1000px;
+  margin: auto;
 }
 
 .delete-category {
   position: absolute;
-  top: 50px;
-  right: 150px;
+  top: -20px;
+  right: 20px;
 }
 
 .category-title mat-icon {
@@ -91,4 +94,5 @@ h1 {
   min-width: 880px;
   color: #3f51b5;
   font: 1.1rem sans-serif;
+  margin-right: 10px;
 }

@@ -13,18 +13,27 @@ export const getErrorMessage = (filedName: string | readonly (string | number)[]
   const passwordErrorMessages: ErrorMessage = {
       minlength: 'Password length should be minimum 6 characters.',
       maxlength: 'Password length should be maximum 56 characters.',
-      pattern: 'Your password must contain at least one uppercase, one lowercase, and one number',
+      pattern: 'Your password must contain at least one uppercase, one lowercase, and one number.',
       required: 'Field password can\'t be empty.'
+  }
+
+  const costErrorMessages: ErrorMessage = {
+    pattern: 'Price should only consist of numbers 0-9 and dot "." or comma ",".',
+    required: 'Field password can\'t be empty.'
   }
 
   let errorObj: ErrorMessage = {};
 
   if (filedName === 'email') {
-    errorObj = emailErrorMessages
+    errorObj = emailErrorMessages;
   }
 
   if (filedName === 'password') {
-    errorObj = passwordErrorMessages
+    errorObj = passwordErrorMessages;
+  }
+
+  if (filedName === 'cost') {
+    errorObj = costErrorMessages;
   }
 
   for (let key in errorObj) {
@@ -32,6 +41,6 @@ export const getErrorMessage = (filedName: string | readonly (string | number)[]
       return form.get(filedName)?.errors?.[key] ? errorObj[key] : '';
     }
   }
-  
+
   return '';
 }

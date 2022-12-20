@@ -1,7 +1,15 @@
 <div class="dialog-form-container">
-  <div class="dialog-title">
+  <div class="dialog-title-block">
     <h1>Add position:</h1>
-    <button type="button" (click)="closeDialogForm()">x</button>
+    <button
+      class="close-btn"
+      mat-icon-button
+      color="warn"
+      type="button"
+      (click)="closeDialogForm()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
   <form
     class="position-form"
@@ -10,12 +18,65 @@
     (ngSubmit)="onSubmit(positionDirective)"
   >
     <div class="inputs-container">
-      <input type="text" formControlName="name">
-      <input type="text" formControlName="cost">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="name"
+          placeholder="Product name"
+          required
+        />
+        <mat-error
+          *ngIf="
+            positionDialogForm.controls['name']?.invalid &&
+            positionDialogForm.controls['name']?.touched
+          "
+        >
+          Please enter name of a product
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Price</mat-label>
+        <input matInput type="text" formControlName="cost" />
+        <mat-error
+          *ngIf="
+            positionDialogForm.controls['cost']?.invalid &&
+            positionDialogForm.controls['cost']?.touched
+          "
+        >
+          {{ errorHandler("cost") }}
+        </mat-error>
+      </mat-form-field>
     </div>
-    <div class="button-are">
-      <button type="button" (click)="cleanForm(positionDirective)">Clean</button>
-      <button type="submit">Add position</button>
+    <div class="button-area">
+      <button
+        mat-raised-button
+        color="accent"
+        type="button"
+        (click)="cleanForm(positionDirective)"
+      >
+        Clean
+      </button>
+      <button
+        mat-raised-button
+        color="primary"
+        disabled="{{ positionDialogForm.invalid }}"
+        type="submit"
+        *ngIf="!data?.editMode; else updateBtn"
+      >
+        Add position
+      </button>
     </div>
   </form>
 </div>
+<ng-template #updateBtn>
+  <button
+    mat-raised-button
+    color="primary"
+    disabled="{{ positionDialogForm.invalid }}"
+    type="submit"
+  >
+    Update
+  </button>
+</ng-template>

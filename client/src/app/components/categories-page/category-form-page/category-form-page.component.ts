@@ -1,7 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { Position } from 'src/app/models/position.model';
 import { PositionService } from 'src/app/shared/services/position.service';
 import { PositionDialogComponent } from '../position-dialog/position-dialog.component';
@@ -11,12 +11,14 @@ import { PositionDialogComponent } from '../position-dialog/position-dialog.comp
   styleUrls: ['./category-form-page.component.css'],
 })
 
-export class CategoryFormPageComponent implements OnInit, OnDestroy {
-  public positions$?: Observable<Position[]>;
-  public routeSub?: Subscription;
+export class CategoryFormPageComponent implements OnInit, AfterViewChecked, OnDestroy {
+  public positions?: Position[];
+  private positionSub?: Subscription;
+  private routeSub?: Subscription;
 
   constructor(
     public dialog: MatDialog,
+    private detectChanger: ChangeDetectorRef,
     private positionService: PositionService,
     private route: ActivatedRoute
   ) { }
@@ -25,19 +27,46 @@ export class CategoryFormPageComponent implements OnInit, OnDestroy {
     this.routeSub = this.route.params.subscribe((params: Params) => {
       this.positionService.setCategoryId(params['id']);
     });
-    this.positions$ = this.positionService.getAllPositions();
+    this.positionSub = this.positionService.getAllPositions().subscribe(data => {
+      this.positions = data;
+      this.positionService.sharedPositions = data;
+    });
   }
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+  public ngAfterViewChecked() {
+    this.positions = this.positionService.sharedPositions;
+    this.detectChanger.detectChanges();
+  }
 
+  public openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
     this.dialog.open(PositionDialogComponent, {
-      width: '250px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
   }
 
+  public openDialogInEditMode(enterAnimationDuration: string, exitAnimationDuration: string, positionId: string): void {
+    this.routeSub = this.positionService.getPositionById(positionId).subscribe((position) => {
+      this.dialog.open(PositionDialogComponent, {
+        enterAnimationDuration,
+        exitAnimationDuration,
+        data: {
+          id: position?._id,
+          name: position?.name,
+          cost: position?.cost,
+          editMode: true
+        }
+      });
+    });
+  }
+
+  public delete(id: string): void {
+    this.routeSub = this.positionService.deletePosition(id).subscribe();
+    this.positionService.removePosition(id, this.positions!);
+  }
+
   ngOnDestroy(): void {
-      this.routeSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
+    this.positionSub?.unsubscribe();
   }
 }

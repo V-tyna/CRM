@@ -44,7 +44,7 @@
       Add position
     </button>
   </div>
-  <div *ngIf="positions$ | async as positions; else loader">
+  <div *ngIf="positions; else loader">
     <div *ngIf="positions.length; else noPositions">
       <mat-card
         class="position-card-container"
@@ -54,9 +54,12 @@
           ><div class="position-text-content">
             <span>{{ position.name }}</span> <b>{{ position.cost }}$</b>
           </div>
-          <button mat-icon-button>
-            <mat-icon color="primary">delete</mat-icon>
+          <button mat-icon-button (click)="openDialogInEditMode('300ms', '300ms', position._id!)">
+            <mat-icon color="accent">edit</mat-icon>
           </button>
+          <button mat-icon-button (click)="delete(position._id!)">
+            <mat-icon color="primary">delete</mat-icon>
+          </button> {{position._id}}
         </mat-card-content>
       </mat-card>
     </div>

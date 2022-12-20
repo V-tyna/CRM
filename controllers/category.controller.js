@@ -25,7 +25,6 @@ module.exports = {
 
 	create: async (req, res) => {
 		try {
-			console.log('File: ', req.file);
 			const category = new Category({
 				name: req.body.name,
 				user: req.user.id,
