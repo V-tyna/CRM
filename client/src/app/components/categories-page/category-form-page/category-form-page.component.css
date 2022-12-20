@@ -10,6 +10,7 @@ h1 {
   align-content: center;
   max-width: 1000px;
   margin: auto;
+  padding: 40px;
 }
 
 .delete-category {
@@ -18,9 +19,33 @@ h1 {
   right: 20px;
 }
 
+.category-title {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.category-title a {
+  text-decoration: none;
+  color: #3f51b5;
+  padding: 10px;
+  height: 35px;
+}
+
+.category-title h1 {
+  height: 35px;
+}
+
+.category-title a:hover {
+  text-decoration: none;
+  background-color: #3f51b52a;
+  border-radius: 5px;
+  color: white;
+}
+
 .category-title mat-icon {
   position: relative;
-  top: 5px;
+  top: 4px;
 }
 
 .form-container {
@@ -46,10 +71,11 @@ h1 {
 
 .image {
   margin: 20px;
+  width: 400px;
 }
 
 .image img {
-  height: 300px;
+  width: 400px;
   border-radius: 10px;
 }
 
@@ -95,4 +121,27 @@ h1 {
   color: #3f51b5;
   font: 1.1rem sans-serif;
   margin-right: 10px;
+}
+
+#fileInput {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.file-label {
+  margin-top: 20px;
+  width: 180px;
+  height: 36px;
+  border-radius: 5px;
+  background-color: #3f51b5;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-nopositions {
+  padding-top: 20px;
+  margin: auto;
 }

@@ -63,20 +63,9 @@
         color="primary"
         disabled="{{ positionDialogForm.invalid }}"
         type="submit"
-        *ngIf="!data?.editMode; else updateBtn"
       >
-        Add position
+        {{data ? 'Update' : 'Add position'}}
       </button>
     </div>
   </form>
 </div>
-<ng-template #updateBtn>
-  <button
-    mat-raised-button
-    color="primary"
-    disabled="{{ positionDialogForm.invalid }}"
-    type="submit"
-  >
-    Update
-  </button>
-</ng-template>

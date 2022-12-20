@@ -11,11 +11,13 @@ import { CategoriesService } from 'src/app/shared/services/categories.service';
 })
 export class CategoriesPageComponent implements OnInit {
   public categories$?: Observable<Category[]>;
+
   constructor(
     private categoriesService: CategoriesService
   ) {}
 
   public ngOnInit(): void {
+
     this.categories$ = this.categoriesService.getAllCategories();
   }
 }

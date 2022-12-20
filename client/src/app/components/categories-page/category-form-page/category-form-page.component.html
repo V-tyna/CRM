@@ -4,34 +4,69 @@
   </button>
   <div class="category-title">
     <h1>
-      <span>Categories</span><mat-icon>keyboard_arrow_right</mat-icon> Add
-      Category
+      <a routerLink="/categories">
+        <span>Categories</span>
+      </a>
+    </h1>
+    <h1>
+      <mat-icon>keyboard_arrow_right</mat-icon>
+      {{ isNew ? "Add" : "Edit" }} Category
     </h1>
   </div>
   <div class="main-form">
-    <form class="form-container">
+    <form
+      class="form-container"
+      [formGroup]="categoryForm"
+      (ngSubmit)="onSubmit()"
+    >
       <div class="inputs">
         <mat-form-field appearance="fill" class="input-container">
-          <mat-label>Input</mat-label>
-          <input matInput />
+          <mat-label>Category name</mat-label>
+          <input matInput formControlName="name" required />
+          <mat-error
+            *ngIf="
+              categoryForm.controls['name']?.invalid &&
+              categoryForm.controls['name']?.touched
+            "
+          >
+            Please enter Category name
+          </mat-error>
         </mat-form-field>
-        <button
+
+        <input
+        (change)="onFileUpload($event)"
           type="file"
+          id="fileInput"
+          required
+          placeholder="Choose file"
+          #inputPickFile
+        />
+        <button
+          (click)="inputFileTrigger()"
+          type="button"
           mat-raised-button
           color="primary"
           class="form-btn expanded-btn"
         >
-          <mat-icon>cloud_upload</mat-icon> Choose File
+          <mat-icon>cloud_upload</mat-icon> Upload file
         </button>
-        <button mat-raised-button color="accent" class="form-btn">
+
+        <button
+          mat-raised-button
+          color="accent"
+          class="form-btn"
+          type="submit"
+          [disabled]="categoryForm.invalid"
+        >
           Save changes
         </button>
       </div>
       <div class="image">
         <img
+          *ngIf="imagePreview"
           mat-card-image
-          src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-          alt="Photo of a Shiba Inu"
+          [src]="imagePreview"
+          alt="category image"
         />
       </div>
     </form>
@@ -44,30 +79,30 @@
       Add position
     </button>
   </div>
-  <div *ngIf="positions; else loader">
-    <div *ngIf="positions.length; else noPositions">
-      <mat-card
-        class="position-card-container"
-        *ngFor="let position of positions"
-      >
-        <mat-card-content class="position-card"
-          ><div class="position-text-content">
-            <span>{{ position.name }}</span> <b>{{ position.cost }}$</b>
-          </div>
-          <button mat-icon-button (click)="openDialogInEditMode('300ms', '300ms', position._id!)">
-            <mat-icon color="accent">edit</mat-icon>
-          </button>
-          <button mat-icon-button (click)="delete(position._id!)">
-            <mat-icon color="primary">delete</mat-icon>
-          </button> {{position._id}}
-        </mat-card-content>
-      </mat-card>
-    </div>
+  <div *ngIf="positions?.length; else noPositions">
+    <mat-card
+      class="position-card-container"
+      *ngFor="let position of positions"
+    >
+      <mat-card-content class="position-card"
+        ><div class="position-text-content">
+          <span>{{ position.name }}</span> <b>{{ position.cost }}$</b>
+        </div>
+        <button
+          mat-icon-button
+          (click)="openDialogInEditMode('300ms', '300ms', position._id!)"
+        >
+          <mat-icon color="accent">edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="delete(position._id!)">
+          <mat-icon color="primary">delete</mat-icon>
+        </button>
+        {{ position._id }}
+      </mat-card-content>
+    </mat-card>
   </div>
-  <ng-template #loader>
-    <mat-spinner class="loader"></mat-spinner>
-  </ng-template>
+
   <ng-template #noPositions>
-    <p>There is no positions yet...</p>
+    <p class="text-nopositions">There is no positions yet...</p>
   </ng-template>
 </div>
