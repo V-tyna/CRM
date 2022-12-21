@@ -11,7 +11,7 @@ module.exports = {
       const { email, password } = req.body;
       const user = await User.findOne({ email });
       if (!user) {
-        res.status(404).json({
+        return res.status(404).json({
           message: `User with this email: ${email} doesn\'t exist.`
         });
       } else {
@@ -24,11 +24,11 @@ module.exports = {
           SECRET_JWT,
           { expiresIn: '1h' }
           );
-          res.status(200).json({
+          return res.status(200).json({
             token: `Bearer ${token}`
           })
         } else {
-          res.status(403).json({
+          return res.status(403).json({
             message: 'Wrong password.'
           });
         }
@@ -42,7 +42,7 @@ module.exports = {
     const { email, password } = req.body;
     const candidate = await User.findOne({ email });
     if (candidate) {
-      res.status(409).json({
+      return res.status(409).json({
         message: `User with this email: ${email} already exist.`
       });
     } else {
@@ -50,7 +50,7 @@ module.exports = {
         const encryptedPassword = await bcrypt.hash(password, 12);
         const user = new User({ email, password: encryptedPassword });
         await user.save();
-        res.status(201).json(user);
+        return res.status(201).json(user);
       } catch(e) {
         errorHandler(res, e);
       } 

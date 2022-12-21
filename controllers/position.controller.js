@@ -8,7 +8,7 @@ module.exports = {
 				category: req.params.categoryId,
 				user: req.user.id,
 			});
-			res.status(200).json(positions);
+			return res.status(200).json(positions);
 		} catch (e) {
 			errorHandler(res, e);
 		}
@@ -20,7 +20,7 @@ module.exports = {
 				_id: req.params.id,
 				user: req.user.id,
 			});
-			res.status(200).json(position);
+			return res.status(200).json(position);
 		} catch (e) {
 			errorHandler(res, e);
 		}
@@ -36,7 +36,7 @@ module.exports = {
 				user: req.user.id,
 			});
 			await position.save();
-			res.status(201).json(position);
+			return res.status(201).json(position);
 		} catch (e) {
 			errorHandler(res, e);
 		}
@@ -50,7 +50,7 @@ module.exports = {
         { new: true }
 			);
 			await updatedPosition.save();
-			res.status(200).json(updatedPosition);
+			return res.status(200).json(updatedPosition);
 		} catch (e) {
 			errorHandler(res, e);
 		}
@@ -59,7 +59,7 @@ module.exports = {
 	delete: async (req, res) => {
 		try {
 			await Position.deleteOne({ _id: req.params.id });
-			res.status(200).json({
+			return res.status(200).json({
 				message: 'Position was successfully deleted.',
 			});
 		} catch (e) {

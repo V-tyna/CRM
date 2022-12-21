@@ -60,7 +60,7 @@ export class CategoryFormPageComponent implements OnInit, OnDestroy {
   }
 
   public deleteCategory() {
-    this.dialogSub = this.popupService.confirmationDialogMessage().subscribe(res =>{
+    this.dialogSub = this.popupService.confirmationDialogMessage('category').subscribe(res =>{
       if (res) {
         this.categorySub = this.categoriesService.deleteCategory(this.category!._id!)
         .subscribe({
@@ -98,7 +98,6 @@ export class CategoryFormPageComponent implements OnInit, OnDestroy {
       this.categorySub = this.categoriesService.createCategory(this.categoryForm.value.name, this.image)
         .subscribe({
           next: (res) => {
-            console.log('Response after creating category: ', res);
             this.popupService.showMessage('Category was successfully added.');
             this.router.navigate([`/categories/${res._id}`]);
           },

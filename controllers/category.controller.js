@@ -8,7 +8,7 @@ module.exports = {
 			const categories = await Category.find({
 				user: req.user.id,
 			});
-			res.status(200).json(categories);
+			return res.status(200).json(categories);
 		} catch (e) {
 			errorHandler(res, e);
 		}
@@ -17,7 +17,7 @@ module.exports = {
 	getById: async (req, res) => {
 		try {
 			const category = await Category.findById(req.params.id);
-			res.status(200).json(category);
+			return res.status(200).json(category);
 		} catch (e) {
 			errorHandler(res, e);
 		}
@@ -31,7 +31,7 @@ module.exports = {
 				imageUrl: req.file ? req.file.path : '',
 			});
 			await category.save();
-			res.status(201).json(category);
+			return res.status(201).json(category);
 		} catch (e) {
 			errorHandler(res, e);
 		}
@@ -50,7 +50,7 @@ module.exports = {
 				{ $set: updated },
 				{ new: true }
 			);
-			res.status(200).json(updatedCategory);
+			return res.status(200).json(updatedCategory);
 		} catch (e) {
 			errorHandler(res, e);
 		}
@@ -60,7 +60,7 @@ module.exports = {
 		try {
 			await Category.deleteOne({ _id: req.params.id });
 			await Position.deleteMany({ category: req.params.id });
-			res.status(200).json({
+			return res.status(200).json({
 				message:
 					'Category and all positions from that category were successfully deleted.',
 			});

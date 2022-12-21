@@ -2,13 +2,15 @@ import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Position } from 'src/app/models/position.model';
+import { PopupService } from 'src/app/shared/services/popup.service';
 import { PositionService } from 'src/app/shared/services/position.service';
 import { PositionDialogComponent } from '../position-dialog/position-dialog.component';
 
 @Component({
   selector: 'app-position-form',
   templateUrl: './position-form.component.html',
-  styleUrls: ['./position-form.component.css']
+  styleUrls: ['./position-form.component.css'],
+  providers: [PopupService]
 })
 export class PositionFormComponent implements OnInit, OnDestroy {
   @Input() isNew = true;
@@ -19,6 +21,7 @@ export class PositionFormComponent implements OnInit, OnDestroy {
   constructor(
     private detectChanger: ChangeDetectorRef,
     public dialog: MatDialog,
+    private popupService: PopupService,
     private positionService: PositionService
   ) {}
 
@@ -32,13 +35,6 @@ export class PositionFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  public ngOnDestroy(): void {
-    this.positionService.setCategoryId('');
-    this.positionService.setSharedPositions([]);
-    this.routeSub?.unsubscribe();
-    this.positionSub?.unsubscribe();
-  }
-
   public ngAfterViewChecked() {
     if (!this.isNew) {
       this.positions = this.positionService.sharedPositions;
@@ -46,9 +42,24 @@ export class PositionFormComponent implements OnInit, OnDestroy {
     }
   }
 
+  public ngOnDestroy(): void {
+    this.positionService.setCategoryId('');
+    this.positionService.setSharedPositions([]);
+    this.routeSub?.unsubscribe();
+    this.positionSub?.unsubscribe();
+  }
+
   public deletePosition(id: string): void {
-    this.positionSub = this.positionService.deletePosition(id).subscribe();
-    this.positionService.removePosition(id, this.positions!);
+    this.popupService.confirmationDialogMessage('position').subscribe({
+      next: (res) => {
+        if (res) {
+          this.positionSub = this.positionService.deletePosition(id).subscribe();
+          this.positionService.removePosition(id, this.positions!);
+          this.popupService.showMessage('Position was deleted.');
+        }
+      },
+      error: (e) => this.popupService.showMessage(e.error.message)
+    })
   }
 
   public openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
@@ -72,5 +83,4 @@ export class PositionFormComponent implements OnInit, OnDestroy {
       });
     });
   }
-
 }

@@ -34,7 +34,7 @@ module.exports = {
         .find(queryForFilters)
         .sort({ date: -1 })
         .skip(req.query.offset);
-      res.status(200).json(orders);
+        return res.status(200).json(orders);
     } catch(e) {
       errorHandler(res, e);
     }
@@ -52,7 +52,7 @@ module.exports = {
         order: maxOrder + 1
       });
       await order.save();
-      res.status(201).json(order);
+      return res.status(201).json(order);
     } catch(e) {
       errorHandler(res, e);
     }

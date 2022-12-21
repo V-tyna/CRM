@@ -7,11 +7,13 @@ import { Subscription } from 'rxjs';
 import { getErrorMessage } from 'src/app/utils/error-form-handlers';
 import { Position } from 'src/app/models/position.model';
 import { PositionService } from 'src/app/shared/services/position.service';
+import { PopupService } from 'src/app/shared/services/popup.service';
 
 @Component({
   selector: 'app-position-dialog',
   templateUrl: './position-dialog.component.html',
-  styleUrls: ['./position-dialog.component.css']
+  styleUrls: ['./position-dialog.component.css'],
+  providers: [PopupService]
 })
 
 export class PositionDialogComponent implements OnInit, OnDestroy {
@@ -22,6 +24,7 @@ export class PositionDialogComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { id: string, name: string, cost: string, editMode: boolean },
     public dialogRef: MatDialogRef<PositionDialogComponent>,
+    private popupService: PopupService,
     private positionService: PositionService
   ) {}
 
@@ -55,15 +58,23 @@ export class PositionDialogComponent implements OnInit, OnDestroy {
       position = { name, cost: +cost, category: this.categoryId };
 
     if (this.data?.editMode) {
-      this.subscription = this.positionService.updatePosition(this.data.id, position).subscribe();
-      this.positionService.editPosition(this.data.id, position!, this.positionService.sharedPositions!);
-
+      this.subscription = this.positionService.updatePosition(this.data.id, position).subscribe({
+        next: (res) => {
+          this.positionService.editPosition(this.data.id, position!, this.positionService.sharedPositions!);
+          this.popupService.showMessage('Position updated.');
+        },
+        error: (e) => this.popupService.showMessage(e.error.message)
+      });
     }
     if (this.data === null) {
-      this.subscription = this.positionService.createPosition(position).subscribe((data) => {
-        position._id = data._id;
-        this.positionService.pushPosition(position, this.positionService.sharedPositions!);
-      });
+      this.subscription = this.positionService.createPosition(position).subscribe({
+        next: (data) => {
+          position._id = data._id;
+          this.positionService.pushPosition(position, this.positionService.sharedPositions!);
+          this.popupService.showMessage('Position added.');
+        },
+        error: (e) => this.popupService.showMessage(e.error.message)
+    });
     }
   }
     this.cleanForm(form);
