@@ -30,6 +30,7 @@ import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.co
 import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
 import { CategoryFormPageComponent } from './components/categories-page/category-form-page/category-form-page.component';
 import { PositionDialogComponent } from './components/categories-page/position-dialog/position-dialog.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { PositionDialogComponent } from './components/categories-page/position-d
     OrderPageComponent,
     CategoriesPageComponent,
     CategoryFormPageComponent,
-    PositionDialogComponent
+    PositionDialogComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     AppRoutingModule,

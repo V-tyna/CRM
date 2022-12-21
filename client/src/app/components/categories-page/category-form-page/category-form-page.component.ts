@@ -1,7 +1,7 @@
 import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Category } from 'src/app/models/category.model';
 import { Position } from 'src/app/models/position.model';
@@ -24,6 +24,7 @@ export class CategoryFormPageComponent implements OnInit, AfterViewChecked, OnDe
   public categoryForm!: FormGroup;
   public category?: Category;
   public positions?: Position[];
+  private dialogSub?: Subscription;
   private positionSub?: Subscription;
   private categorySub?: Subscription;
   private routeSub?: Subscription;
@@ -34,7 +35,8 @@ export class CategoryFormPageComponent implements OnInit, AfterViewChecked, OnDe
     private detectChanger: ChangeDetectorRef,
     private popupService: PopupService,
     private positionService: PositionService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   public ngOnInit(): void {
@@ -68,7 +70,26 @@ export class CategoryFormPageComponent implements OnInit, AfterViewChecked, OnDe
     }
   }
 
-  public delete(id: string): void {
+  public deleteCategory() {
+    this.dialogSub = this.popupService.confirmationDialogMessage().subscribe(res =>{
+      if (res) {
+        this.categorySub = this.categoriesService.deleteCategory(this.category!._id!)
+        .subscribe({
+          next: (res) => {
+            this.popupService.showMessage(res.message);
+          },
+          error: (error) => {
+            this.popupService.showMessage(error.error.message);
+          },
+          complete: () => {
+            this.router.navigate(['/categories']);
+          }
+        });
+      }
+    });
+  }
+
+  public deletePosition(id: string): void {
     this.routeSub = this.positionService.deletePosition(id).subscribe();
     this.positionService.removePosition(id, this.positions!);
   }
@@ -124,6 +145,7 @@ export class CategoryFormPageComponent implements OnInit, AfterViewChecked, OnDe
 
   ngOnDestroy(): void {
     this.categorySub?.unsubscribe();
+    this.dialogSub?.unsubscribe();
     this.positionSub?.unsubscribe();
     this.routeSub?.unsubscribe();
   }

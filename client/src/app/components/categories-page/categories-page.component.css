@@ -1,9 +1,22 @@
-.example-spacer {
+.category-list-container {
+  max-width: 1000px;
+  margin: auto;
+}
+
+.category-title-spacer {
   flex: 1 1 auto;
 }
 
 mat-card-content:hover {
-  background-color: #ff408041;
+  background-color: #ff40802f;
+}
+
+.category-card {
+  margin-top: 5px;
+  text-align: center;
+  color: #3f51b5;
+  font-size: larger;
+  font-weight: 500;
 }
 
 .loader {

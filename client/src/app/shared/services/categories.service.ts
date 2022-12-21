@@ -27,6 +27,10 @@ export class CategoriesService {
     return this.http.post<Category>('/api/category', formData);
   }
 
+  public deleteCategory(id: string): Observable<{message: string}> {
+    return this.http.delete<{message: string}>('/api/category/' + id);
+  }
+
   public updateCategory(id: string, name: string, image?: File): Observable<Category> {
     const formData = new FormData();
     if (image) {

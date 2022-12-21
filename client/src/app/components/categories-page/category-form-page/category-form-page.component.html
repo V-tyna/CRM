@@ -1,5 +1,5 @@
 <div class="category-form-container">
-  <button mat-fab color="warn" class="delete-category">
+  <button *ngIf="!isNew" mat-fab color="warn" class="delete-category" (click)="deleteCategory()">
     <mat-icon>delete</mat-icon>
   </button>
   <div class="category-title">
@@ -94,7 +94,7 @@
         >
           <mat-icon color="accent">edit</mat-icon>
         </button>
-        <button mat-icon-button (click)="delete(position._id!)">
+        <button mat-icon-button (click)="deletePosition(position._id!)">
           <mat-icon color="primary">delete</mat-icon>
         </button>
         {{ position._id }}
