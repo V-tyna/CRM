@@ -1,0 +1,43 @@
+<div class="dialog-container">
+  <div class="title">
+    <h2>Your order</h2>
+  </div>
+  <div class="products-table">
+    <table mat-table class="table-section-container" [dataSource]="positions">
+        <!-- Item Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let position"> {{position.name}} </td>
+        </ng-container>
+
+        <!-- Quantity Column -->
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> Quantity </th>
+          <td mat-cell *matCellDef="let position">{{position.quantity}} </td>
+        </ng-container>
+
+        <!-- Delete Column -->
+        <ng-container matColumnDef="delete">
+          <th mat-header-cell *matHeaderCellDef>  </th>
+          <td mat-cell *matCellDef="let position"><button mat-icon-button color="warn"><mat-icon>delete</mat-icon></button></td>
+        </ng-container>
+
+        <!-- Cost Column -->
+        <ng-container matColumnDef="cost">
+          <th mat-header-cell *matHeaderCellDef> Cost </th>
+          <td mat-cell *matCellDef="let position"> {{position.cost | currency}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+  </div>
+  <div class="summary">
+    <h3>Order summary: </h3>
+    <!-- <span>{{sum}}$</span> -->
+  </div>
+  <div class="button-area">
+    <button mat-raised-button color="warn" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary">Confirm</button>
+  </div>
+</div>

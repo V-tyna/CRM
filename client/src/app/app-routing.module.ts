@@ -6,7 +6,9 @@ import { CategoriesPageComponent } from './components/categories-page/categories
 import { CategoryFormPageComponent } from './components/categories-page/category-form-page/category-form-page.component';
 import { HistoryPageComponent } from './components/history-page/history-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { OrderCategoriesComponent } from './components/order-page/order-categories/order-categories.component';
 import { OrderPageComponent } from './components/order-page/order-page.component';
+import { OrderPositionsComponent } from './components/order-page/order-positions/order-positions.component';
 import { OverviewPageComponent } from './components/overview-page/overview-page.component';
 import { SignupPageComponent } from './components/signup-page/signup-page.component';
 import { appPaths } from './configs/app-paths';
@@ -29,7 +31,10 @@ const routes: Routes = [
       { path: appPaths['categoriesNew'], component: CategoryFormPageComponent },
       { path: appPaths['categoriesId'], component: CategoryFormPageComponent },
       { path: appPaths['history'], component: HistoryPageComponent },
-      { path: appPaths['order'], component: OrderPageComponent },
+      { path: appPaths['order'], component: OrderPageComponent, children: [
+        { path: appPaths['empty'], component: OrderCategoriesComponent },
+        { path: appPaths['orderId'], component: OrderPositionsComponent },
+      ] },
       { path: appPaths['overview'], component: OverviewPageComponent },
     ]
   }

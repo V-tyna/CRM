@@ -73,39 +73,4 @@
   </div>
 </div>
 
-<!-- <div class="position-container">
-  <div class="position-title">
-    <h1>Positions:</h1>
-    <button mat-raised-button (click)="openDialog('300ms', '300ms')">
-      Add position
-    </button>
-  </div>
-  <div *ngIf="positions?.length; else noPositions">
-    <mat-card
-      class="position-card-container"
-      *ngFor="let position of positions"
-    >
-      <mat-card-content class="position-card"
-        ><div class="position-text-content">
-          <span>{{ position.name }}</span> <b>{{ position.cost }}$</b>
-        </div>
-        <button
-          mat-icon-button
-          (click)="openDialogInEditMode('300ms', '300ms', position._id!)"
-        >
-          <mat-icon color="accent">edit</mat-icon>
-        </button>
-        <button mat-icon-button (click)="deletePosition(position._id!)">
-          <mat-icon color="primary">delete</mat-icon>
-        </button>
-        {{ position._id }}
-      </mat-card-content>
-    </mat-card>
-  </div>
-
-  <ng-template #noPositions>
-    <p class="text-nopositions">There is no positions yet...</p>
-  </ng-template>
-</div> -->
-
 <app-position-form [isNew]="isNew"></app-position-form>

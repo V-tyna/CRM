@@ -8,6 +8,7 @@ export const appPaths: AppPath = {
   empty: '',
   history: 'history',
   order: 'order',
+  orderId: ':id',
   login: 'login',
   overview: 'overview',
   signup: 'signup'

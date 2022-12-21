@@ -11,6 +11,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
@@ -26,7 +27,10 @@ import { PositionFormComponent } from './components/categories-page/position-for
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { HistoryPageComponent } from './components/history-page/history-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { OrderCategoriesComponent } from './components/order-page/order-categories/order-categories.component';
+import { OrderDialogFormComponent } from './components/order-page/order-dialog-form/order-dialog-form.component';
 import { OrderPageComponent } from './components/order-page/order-page.component';
+import { OrderPositionsComponent } from './components/order-page/order-positions/order-positions.component';
 import { OverviewPageComponent } from './components/overview-page/overview-page.component';
 import { SignupPageComponent } from './components/signup-page/signup-page.component';
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
@@ -48,7 +52,10 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
     OverviewPageComponent,
     PositionDialogComponent,
     PositionFormComponent,
-    SignupPageComponent
+    SignupPageComponent,
+    OrderCategoriesComponent,
+    OrderPositionsComponent,
+    OrderDialogFormComponent
   ],
   imports: [
     AppRoutingModule,
@@ -65,6 +72,7 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
     MatFormFieldModule,
     MatSidenavModule,
     MatSnackBarModule,
+    MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
     ReactiveFormsModule

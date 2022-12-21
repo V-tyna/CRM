@@ -1,1 +1,15 @@
-<p>order-page works!</p>
+<div class="order-container">
+  <div class="order-title-block">
+    <div class="title-area">
+      <h1><a routerLink="/order">Order</a></h1>
+      <h1 *ngIf="categoryId">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+        Add products
+      </h1>
+    </div>
+    <button mat-raised-button color="accent" (click)="openDialog('300ms', '300ms')">Complete<mat-icon>done_outline</mat-icon></button>
+  </div>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</div>
