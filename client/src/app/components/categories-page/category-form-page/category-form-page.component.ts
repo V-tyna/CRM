@@ -1,14 +1,12 @@
-import { AfterViewChecked, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Category } from 'src/app/models/category.model';
-import { Position } from 'src/app/models/position.model';
 import { CategoriesService } from 'src/app/shared/services/categories.service';
 import { PositionService } from 'src/app/shared/services/position.service';
 import { PopupService } from '../../../shared/services/popup.service';
-import { PositionDialogComponent } from '../position-dialog/position-dialog.component';
+
 @Component({
   selector: 'app-category-form-page',
   templateUrl: './category-form-page.component.html',
@@ -16,23 +14,19 @@ import { PositionDialogComponent } from '../position-dialog/position-dialog.comp
   providers: [CategoriesService, PopupService]
 })
 
-export class CategoryFormPageComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class CategoryFormPageComponent implements OnInit, OnDestroy {
   @ViewChild('inputPickFile') inputRef!: ElementRef;
   public image?: File;
   public imagePreview = '';
   public isNew = true;
   public categoryForm!: FormGroup;
   public category?: Category;
-  public positions?: Position[];
   private dialogSub?: Subscription;
-  private positionSub?: Subscription;
   private categorySub?: Subscription;
   private routeSub?: Subscription;
 
   constructor(
-    public dialog: MatDialog,
     private categoriesService: CategoriesService,
-    private detectChanger: ChangeDetectorRef,
     private popupService: PopupService,
     private positionService: PositionService,
     private route: ActivatedRoute,
@@ -55,19 +49,14 @@ export class CategoryFormPageComponent implements OnInit, AfterViewChecked, OnDe
           }
         });
         this.positionService.setCategoryId(params['id']);
-        this.positionSub = this.positionService.getAllPositions().subscribe(data => {
-          this.positions = data;
-          this.positionService.setSharedPositions(data);
-        });
       }
     });
   }
 
-  public ngAfterViewChecked() {
-    if (!this.isNew) {
-      this.positions = this.positionService.sharedPositions;
-      this.detectChanger.detectChanges();
-    }
+  ngOnDestroy(): void {
+    this.categorySub?.unsubscribe();
+    this.dialogSub?.unsubscribe();
+    this.routeSub?.unsubscribe();
   }
 
   public deleteCategory() {
@@ -89,35 +78,8 @@ export class CategoryFormPageComponent implements OnInit, AfterViewChecked, OnDe
     });
   }
 
-  public deletePosition(id: string): void {
-    this.routeSub = this.positionService.deletePosition(id).subscribe();
-    this.positionService.removePosition(id, this.positions!);
-  }
-
   public inputFileTrigger() {
     this.inputRef.nativeElement.click();
-  }
-
-  public openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open(PositionDialogComponent, {
-      enterAnimationDuration,
-      exitAnimationDuration,
-    });
-  }
-
-  public openDialogInEditMode(enterAnimationDuration: string, exitAnimationDuration: string, positionId: string): void {
-    this.routeSub = this.positionService.getPositionById(positionId).subscribe((position) => {
-      this.dialog.open(PositionDialogComponent, {
-        enterAnimationDuration,
-        exitAnimationDuration,
-        data: {
-          id: position?._id,
-          name: position?.name,
-          cost: position?.cost,
-          editMode: true
-        }
-      });
-    });
   }
 
   public onFileUpload(event: Event) {
@@ -134,19 +96,18 @@ export class CategoryFormPageComponent implements OnInit, AfterViewChecked, OnDe
   public onSubmit() {
     if (this.isNew) {
       this.categorySub = this.categoriesService.createCategory(this.categoryForm.value.name, this.image)
-        .subscribe();
-        this.popupService.showMessage('Category was successfully added.');
+        .subscribe({
+          next: (res) => {
+            console.log('Response after creating category: ', res);
+            this.popupService.showMessage('Category was successfully added.');
+            this.router.navigate([`/categories/${res._id}`]);
+          },
+          error: (e) =>  this.popupService.showMessage(e.message)
+        });
+
     } else {
       this.categorySub = this.categoriesService.updateCategory(this.category!._id!, this.categoryForm.value.name, this.image)
-        .subscribe();
-        this.popupService.showMessage('Category was successfully updated.');
+        .subscribe(() => this.popupService.showMessage('Category was successfully updated.'));
     }
-  }
-
-  ngOnDestroy(): void {
-    this.categorySub?.unsubscribe();
-    this.dialogSub?.unsubscribe();
-    this.positionSub?.unsubscribe();
-    this.routeSub?.unsubscribe();
   }
 }

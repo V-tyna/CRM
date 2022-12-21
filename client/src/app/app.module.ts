@@ -20,6 +20,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AnalyticsPageComponent } from './components/analytics-page/analytics-page.component';
 import { CategoriesPageComponent } from './components/categories-page/categories-page.component';
+import { CategoryFormPageComponent } from './components/categories-page/category-form-page/category-form-page.component';
+import { PositionDialogComponent } from './components/categories-page/position-dialog/position-dialog.component';
+import { PositionFormComponent } from './components/categories-page/position-form/position-form.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { HistoryPageComponent } from './components/history-page/history-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { OrderPageComponent } from './components/order-page/order-page.component';
@@ -28,25 +32,23 @@ import { SignupPageComponent } from './components/signup-page/signup-page.compon
 import { AuthLayoutComponent } from './shared/layouts/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './shared/layouts/main-layout/main-layout.component';
 import { AuthInterceptorService } from './shared/services/auth-interceptor.service';
-import { CategoryFormPageComponent } from './components/categories-page/category-form-page/category-form-page.component';
-import { PositionDialogComponent } from './components/categories-page/position-dialog/position-dialog.component';
-import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
+    AnalyticsPageComponent,
     AppComponent,
     AuthLayoutComponent,
-    LoginPageComponent,
-    MainLayoutComponent,
-    SignupPageComponent,
-    OverviewPageComponent,
-    AnalyticsPageComponent,
-    HistoryPageComponent,
-    OrderPageComponent,
     CategoriesPageComponent,
     CategoryFormPageComponent,
+    ConfirmationDialogComponent,
+    HistoryPageComponent,
+    LoginPageComponent,
+    MainLayoutComponent,
+    OrderPageComponent,
+    OverviewPageComponent,
     PositionDialogComponent,
-    ConfirmationDialogComponent
+    PositionFormComponent,
+    SignupPageComponent
   ],
   imports: [
     AppRoutingModule,
