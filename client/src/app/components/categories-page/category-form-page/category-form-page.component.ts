@@ -51,21 +51,21 @@ export class CategoryFormPageComponent implements OnInit, AfterViewChecked, OnDe
           if (category.imageUrl) {
             this.imagePreview = category.imageUrl;
           }
-        })
+        });
         this.positionService.setCategoryId(params['id']);
         this.positionSub = this.positionService.getAllPositions().subscribe(data => {
           this.positions = data;
           this.positionService.setSharedPositions(data);
         });
-      } else {
-        this.positions = [];
       }
     });
   }
 
   public ngAfterViewChecked() {
-    this.positions = this.positionService.sharedPositions;
-    this.detectChanger.detectChanges();
+    if (!this.isNew) {
+      this.positions = this.positionService.sharedPositions;
+      this.detectChanger.detectChanges();
+    }
   }
 
   public delete(id: string): void {
