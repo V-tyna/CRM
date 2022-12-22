@@ -1,7 +1,6 @@
 import { Component, Inject, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 
 import { getErrorMessage } from 'src/app/utils/error-form-handlers';

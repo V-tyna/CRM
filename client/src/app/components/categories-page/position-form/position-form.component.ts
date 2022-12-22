@@ -50,7 +50,7 @@ export class PositionFormComponent implements OnInit, OnDestroy {
   }
 
   public deletePosition(id: string): void {
-    this.popupService.confirmationDialogMessage('position').subscribe({
+    this.popupService.confirmationDialogMessage('Would you like to delete this position?').subscribe({
       next: (res) => {
         if (res) {
           this.positionSub = this.positionService.deletePosition(id).subscribe();

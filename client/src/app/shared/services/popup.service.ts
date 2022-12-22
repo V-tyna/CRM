@@ -12,10 +12,10 @@ export class PopupService {
     public dialog: MatDialog
   ) {}
 
-  public confirmationDialogMessage(nameOfDeletionEntity: string){
+  public confirmationDialogMessage(message: string){
   const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
     data: {
-      name: nameOfDeletionEntity
+      message
     }
   });
 

@@ -60,7 +60,7 @@ export class CategoryFormPageComponent implements OnInit, OnDestroy {
   }
 
   public deleteCategory() {
-    this.dialogSub = this.popupService.confirmationDialogMessage('category').subscribe(res =>{
+    this.dialogSub = this.popupService.confirmationDialogMessage('Would you like to delete this category?').subscribe(res =>{
       if (res) {
         this.categorySub = this.categoriesService.deleteCategory(this.category!._id!)
         .subscribe({

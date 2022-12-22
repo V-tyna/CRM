@@ -35,15 +35,26 @@
 
 .summary {
   position: sticky;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   width: 95%;
   height: 30px;
   margin: 0 auto;
 }
 
 .summary h3 {
-  width: 95%;
   margin-left: 10px;
   font-size: 1.3rem;
+  padding: 7px;
+}
+
+.summary span {
+  margin-left: 10px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #ff4081;
+  padding: 13px;
 }
 
 .button-area {

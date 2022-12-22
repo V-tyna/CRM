@@ -42,8 +42,9 @@ module.exports = {
 
   create: async (req, res) => {
     try {
-      const lastOrder = Order
-        .findOne({ user: req.userI.id })
+      console.log('Order at backend: ', '1) User id:', req.user.id, '2) List: ', req.body.list)
+      const lastOrder = await Order
+        .findOne({ user: req.user.id })
         .sort({ date: -1 });
       const maxOrder = lastOrder ? lastOrder.order : 0;
       const order = new Order({
@@ -51,6 +52,7 @@ module.exports = {
         user: req.user.id,
         order: maxOrder + 1
       });
+      console.log('Last order: ', lastOrder, 'order: ', order, 'Max order: ', maxOrder)
       await order.save();
       return res.status(201).json(order);
     } catch(e) {
