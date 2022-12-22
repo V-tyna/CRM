@@ -1,3 +1,11 @@
 .order-number-input {
   margin-right: 20px;
 }
+
+.btn-area {
+  padding: 10px;
+}
+
+.btn-area button {
+  margin-right: 20px;
+}

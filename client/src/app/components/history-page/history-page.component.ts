@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
+import { Filter } from 'src/app/models/filter.model';
 import { Order } from 'src/app/models/order.model';
 import { OrderService } from 'src/app/shared/services/order.service';
 import { PopupService } from 'src/app/shared/services/popup.service';
@@ -14,6 +15,7 @@ import { PopupService } from 'src/app/shared/services/popup.service';
 export class HistoryPageComponent implements OnInit, OnDestroy {
   public disabled = false;
   public isFilterVisible = false;
+  public filter: Filter = {};
   public orderLength = 0;
   public pageSize = 10; //limit
   public orderSub?: Subscription;
@@ -35,9 +37,17 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
     this.orderSub?.unsubscribe();
   }
 
+  public applyFilter(e: Filter) {
+    this.pageIndex = 0;
+    this.filter = e;
+    this.getOrders();
+    this.filter = {};
+  }
+
   private getOrders() {
     this.disabled = true;
     const params = {
+      ...this.filter,
       limit: this.pageSize,
       offset: this.pageIndex * this.pageSize || 0
     }
