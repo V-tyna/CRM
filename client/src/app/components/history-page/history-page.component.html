@@ -1,1 +1,33 @@
-<p>history-page works!</p>
+<div class="history-container">
+  <div class="history-title-block">
+    <div class="title-area">
+      <h1>History</h1>
+    </div>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="toggleFilter()"
+      [matTooltip]="tooltipContent"
+      matTooltipPosition="left"
+      matTooltipHideDelay="500"
+    >
+      Filter<mat-icon>filter_list</mat-icon>
+    </button>
+  </div>
+  <div>
+    <app-history-filter *ngIf="isFilterVisible"></app-history-filter>
+    <app-history-table [ordersHistory]="orders"></app-history-table>
+    <div>
+      <mat-paginator
+        #paginator
+        (page)="handlePageEvent($event)"
+        [length]="orderLength"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="[5, 10, 25]"
+        [disabled]="disabled"
+        aria-label="Select page"
+      >
+      </mat-paginator>
+    </div>
+  </div>
+</div>

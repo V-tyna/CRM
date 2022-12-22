@@ -29,12 +29,13 @@ module.exports = {
       if(req.query.order) {
         queryForFilters.order = +req.query.order;
       }
-
+      const allOrdersLength = await Order.find().count();
       const orders = await Order
         .find(queryForFilters)
         .sort({ date: -1 })
-        .skip(req.query.offset);
-        return res.status(200).json(orders);
+        .skip(+req.query.offset)
+        .limit(+req.query.limit);
+        return res.status(200).json({orders, allOrdersLength});
     } catch(e) {
       errorHandler(res, e);
     }
@@ -42,7 +43,6 @@ module.exports = {
 
   create: async (req, res) => {
     try {
-      console.log('Order at backend: ', '1) User id:', req.user.id, '2) List: ', req.body.list)
       const lastOrder = await Order
         .findOne({ user: req.user.id })
         .sort({ date: -1 });
@@ -52,7 +52,6 @@ module.exports = {
         user: req.user.id,
         order: maxOrder + 1
       });
-      console.log('Last order: ', lastOrder, 'order: ', order, 'Max order: ', maxOrder)
       await order.save();
       return res.status(201).json(order);
     } catch(e) {

@@ -23,3 +23,16 @@ mat-card-content:hover {
   width: 200px;
   height: 200px;
 }
+
+.title-area h1 {
+  font-size: 2rem;
+  text-decoration: none;
+  color: #3f51b5;
+  border-radius: 5px;
+  padding: 10px;
+  height: 35px;
+}
+
+.mat-toolbar {
+  background-color: transparent;
+}

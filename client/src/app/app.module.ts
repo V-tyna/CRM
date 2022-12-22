@@ -3,11 +3,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -25,7 +28,10 @@ import { CategoryFormPageComponent } from './components/categories-page/category
 import { PositionDialogComponent } from './components/categories-page/position-dialog/position-dialog.component';
 import { PositionFormComponent } from './components/categories-page/position-form/position-form.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { HistoryDialogComponent } from './components/history-page/history-dialog/history-dialog.component';
+import { HistoryFilterComponent } from './components/history-page/history-filter/history-filter.component';
 import { HistoryPageComponent } from './components/history-page/history-page.component';
+import { HistoryTableComponent } from './components/history-page/history-table/history-table.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { OrderCategoriesComponent } from './components/order-page/order-categories/order-categories.component';
 import { OrderDialogFormComponent } from './components/order-page/order-dialog-form/order-dialog-form.component';
@@ -55,7 +61,10 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
     SignupPageComponent,
     OrderCategoriesComponent,
     OrderPositionsComponent,
-    OrderDialogFormComponent
+    OrderDialogFormComponent,
+    HistoryTableComponent,
+    HistoryFilterComponent,
+    HistoryDialogComponent
   ],
   imports: [
     AppRoutingModule,
@@ -65,10 +74,13 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
     FormsModule,
     MatButtonModule,
     MatCardModule,
+    MatDatepickerModule,
     MatDialogModule,
     MatIconModule,
     MatInputModule,
     MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatSidenavModule,
@@ -83,7 +95,8 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
       provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: AuthInterceptorService
-    }
+    },
+    MatDatepickerModule
   ],
   bootstrap: [AppComponent]
 })

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Order, OrderPosition } from 'src/app/models/order.model';
@@ -27,6 +27,14 @@ export class OrderService {
 
   public createOrder(order: Order): Observable<Order> {
     return this.http.post<Order>('/api/order', order);
+  }
+
+  public getOrders(paramsObj: { limit: number, offset: number }): Observable<{allOrdersLength: string, orders: Order[]}> {
+    return this.http.get<{allOrdersLength: string, orders: Order[]}>('/api/order', {
+      params: new HttpParams({
+        fromObject: paramsObj
+      })
+    });
   }
 
   public removePosition(id: string): void {

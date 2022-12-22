@@ -1,0 +1,109 @@
+.dialog-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.title {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+  height: 50px;
+  margin: 20px 20px 0 20px;
+}
+
+.title h2 {
+  font-size: 2rem;
+}
+
+.products-table {
+  position: relative;
+  width: 100%;
+  max-height: 320px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin: auto;
+}
+
+.table-section-container {
+  max-height: 320px;
+  overflow: auto;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.summary {
+  position: sticky;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 95%;
+  height: 30px;
+  margin: 0 auto;
+}
+
+.summary h3 {
+  margin-left: 10px;
+  font-size: 1.3rem;
+  padding: 7px;
+}
+
+.summary span {
+  margin-left: 10px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #ff4081;
+  padding: 13px;
+}
+
+.button-area {
+  position: relative;
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
+  height: 60px;
+}
+
+.button-area button {
+  margin-left: 10px;
+}
+
+tr.mat-mdc-footer-row {
+  font-weight: bold;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(204, 204, 204, 0.603);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #3f51b5;
+  height: 20%;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3f51b5;
+}
+
+.name {
+  width: 40%;
+}
+
+.quantity {
+  width: 30%;
+}
+
+.cost {
+  width: 20%;
+}
