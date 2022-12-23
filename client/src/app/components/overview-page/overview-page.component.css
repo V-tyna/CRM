@@ -1,0 +1,123 @@
+.overview-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 1000px;
+  margin-bottom: 100px;
+}
+
+.title-area  {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  position: relative;
+}
+
+.title-area h1 {
+  font-size: 2rem;
+  text-decoration: none;
+  color: #3f51b5;
+  border-radius: 5px;
+  padding: 10px;
+  height: 35px;
+}
+
+.icon {
+  position: absolute;
+  top: 12px;
+  margin-left: 10px;
+  color: rgb(170, 170, 170);
+}
+
+.icon:hover {
+  color: #ff4081;
+}
+
+.cards {
+  display: flex;
+  flex-flow: row wrap;
+  margin: auto;
+  background-color: #3f51b510;
+  min-width: 1000px;
+  min-height: 500px;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card {
+  width: 400px;
+  height: 300px;
+  box-shadow: 0px 3px 3px 0px #ccc;
+  border-radius: 10px;
+  color: #fff;
+  transition: width 500ms, height 500ms;
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center; */
+  position: relative;
+}
+
+.card:hover {
+  width: 450px;
+  height: 350px;
+  box-shadow: 0px 3px 3px 0px #ccc;
+  border-radius: 10px;
+  color: #fff;
+  transition: width 500ms, height 500ms;
+}
+
+.card-income {
+  background-color: #3f51b5;
+}
+
+.card-order {
+  background-color: #ff4081;
+}
+
+.text {
+  margin: auto;
+  padding: 20px;
+  font-size: 1.3rem;
+  transition: font-size 200ms;
+}
+
+.text:hover {
+  font-size: 1.5rem;
+  transition: font-size 200ms;
+}
+
+.text-block p {
+  margin: 2px;
+}
+
+.text-block {
+  margin: 2px;
+  font-size: 0.9rem;
+  transition: font-size 200ms;
+}
+
+.text-block:hover {
+  font-size: 1.2rem;
+  transition: font-size 200ms;
+}
+
+.card-content {
+  margin: auto;
+  padding: 20px;
+  font-size: 2rem;
+  transition: font-size 200ms;
+}
+
+.card-content:hover {
+  font-size: 3rem;
+  transition: font-size 200ms;
+}
+
+.green {
+  color: greenyellow;
+}
+
+.orange {
+  color: orange;
+}

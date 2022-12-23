@@ -9,19 +9,11 @@ module.exports = {
         user: req.user.id,
       };
 
-      // Queries for filter 'data start'. Search by orders made after query date.
-      if (req.query.start) {
+      // Search by date range
+      if (req.query.start && req.query.end) {
         queryForFilters.date = {
-          $gte: req.query.start
-        }
-      }
-
-      // Queries for filter 'data end'. Search by orders made before query date.
-      if (req.query.end) {
-        if (!queryForFilters.date) {
-          queryForFilters.date = {};
-        } else {
-          queryForFilters.date['$lte']= req.query.end;
+          $gte: req.query.start,
+          $lte: req.query.end
         }
       }
 

@@ -28,7 +28,9 @@ export class HistoryFilterComponent {
     let { end, start, order } = this.formFilter.value;
     if (order) {
       this.onFilter.emit({ order });
-    } else if (start && end) {
+      return;
+    }
+    if (start && end) {
       end = new Date(end.toString().split(' ').map(time => {
         if (time === '00:00:00') {
           time = '23:59:59';

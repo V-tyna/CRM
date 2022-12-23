@@ -1,1 +1,71 @@
-<p>overview-page works!</p>
+<div class="overview-container">
+  <div class="title-area">
+    <h1>
+      Overview for today ({{ today | date : "MM.dd.YYYY" }})
+      <mat-icon
+        class="icon"
+        matTooltip="On this page you can explore the statistic for current moment."
+        matTooltipPosition="after"
+        >info</mat-icon
+      >
+    </h1>
+  </div>
+  <div class="cards" *ngIf="data$ | async as data; else loader">
+    <div class="card card-income">
+      <div class="text">Income:</div>
+      <div class="card-content">{{ data.income.today }}</div>
+      <div
+        class="card-content"
+        [ngClass]="{
+          green: data.income.isHigher,
+          orange: !data.income.isHigher
+        }"
+      >
+        <mat-icon>{{
+          data.income.isHigher ? "arrow_upward" : "arrow_downward"
+        }}</mat-icon
+        >{{ data.income.percent }}%
+      </div>
+      <div class="text text-block">
+        <p>
+          Your business earns {{ data.income.percent }}% or
+          {{ data.income.compare | currency }}
+        </p>
+        <p>
+          {{ data.income.isHigher ? "more" : "below" }} than average:
+          {{ data.income.perDay | currency }} per day.
+        </p>
+      </div>
+    </div>
+    <div class="card card-order">
+      <div class="text">Orders:</div>
+      <div class="card-content">{{ data.orders.today }}</div>
+      <div
+        class="card-content"
+        [ngClass]="{
+          green: data.orders.isHigher,
+          orange: !data.orders.isHigher
+        }"
+      >
+        <mat-icon>{{
+          data.orders.isHigher ? "arrow_upward" : "arrow_downward"
+        }}</mat-icon
+        >{{ data.orders.percent }}%
+      </div>
+      <div class="text text-block">
+        <p>The number of today's orders is</p>
+        <p>
+          {{ data.orders.percent }}% or {{ data.orders.compare }} orders
+          {{ data.orders.isHigher ? "more" : "below" }}
+        </p>
+        <p>than average: {{ data.orders.perDay }} orders per day.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <div class="loader">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
