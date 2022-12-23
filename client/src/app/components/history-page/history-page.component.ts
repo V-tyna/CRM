@@ -16,12 +16,14 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
   public disabled = false;
   public isFilterVisible = false;
   public filter: Filter = {};
+  public noSuchOrder = false;
   public orderLength = 0;
-  public pageSize = 10; //limit
+  public orderNumber?: number;
   public orderSub?: Subscription;
   public orders: Order[] = [];
-  public pageIndex = 0; // offset
   public pageEvent?: PageEvent;
+  public pageIndex = 0; // offset
+  public pageSize = 10; //limit
   public tooltipContent = 'Open filters';
 
   constructor(
@@ -40,6 +42,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
   public applyFilter(e: Filter) {
     this.pageIndex = 0;
     this.filter = e;
+    this.orderNumber = e.order;
     this.getOrders();
     this.filter = {};
   }
@@ -55,9 +58,12 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
       next: (data) => {
         this.orders = data.orders;
         this.orderLength = +data.allOrdersLength;
+        if (this.orderNumber) {
+          this.noSuchOrder = +this.orderNumber > this.orderLength || +this.orderNumber < 1;
+        }
       },
       error: (e) => this.popupService.showMessage(e.message),
-      complete: () =>  this.disabled = false
+      complete: () => this.disabled = false
     });
   }
 

@@ -1,15 +1,8 @@
 <form [formGroup]="formFilter" (ngSubmit)="onSubmitFilter()">
-  <div>
+  <div class="inputs-container">
     <mat-form-field class="order-number-input">
       <mat-label>Enter order number</mat-label>
-      <input
-        matInput
-        placeholder="Order number"
-        formControlName="order"
-      />
-      <mat-error *ngIf="formFilter.controls['order'].hasError('pattern')"
-        >Only numbers are allowed.</mat-error
-      >
+      <input matInput placeholder="Order number" formControlName="order" />
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Enter a date range</mat-label>
@@ -17,7 +10,12 @@
         [rangePicker]="picker"
         [disabled]="!!formFilter.value.order"
       >
-        <input matStartDate formControlName="start" placeholder="Start date" />
+        <input
+          matStartDate
+          formControlName="start"
+          placeholder="Start date"
+          (change)="errors()"
+        />
         <input matEndDate formControlName="end" placeholder="End date" />
       </mat-date-range-input>
       <mat-datepicker-toggle
@@ -25,16 +23,34 @@
         [for]="picker"
       ></mat-datepicker-toggle>
       <mat-date-range-picker #picker></mat-date-range-picker>
-
-      <mat-error
-        *ngIf="formFilter.controls['start'].hasError('matStartDateInvalid')"
-        >Invalid start date</mat-error
-      >
-      <mat-error
-        *ngIf="formFilter.controls['end'].hasError('matEndDateInvalid')"
-        >Invalid end date</mat-error
-      >
     </mat-form-field>
+
+    <div class="errors-area">
+      <div class="order-errors">
+        <mat-error *ngIf="formFilter.controls['order'].hasError('pattern')"
+          >Only numbers are allowed.</mat-error
+        >
+        <mat-error *ngIf="formFilter.controls['order'].hasError('min')"
+          >Digits lower than 1 is not allowed.</mat-error
+        >
+      </div>
+      <div class="date-errors">
+        <mat-error
+          *ngIf="
+            formFilter.controls['start'].hasError('matStartDateInvalid') ||
+            formFilter.controls['start'].hasError('matDatepickerParse')
+          "
+          >Invalid start date</mat-error
+        >
+        <mat-error
+          *ngIf="
+            formFilter.controls['end'].hasError('matEndDateInvalid') ||
+            formFilter.controls['end'].hasError('matDatepickerParse')
+          "
+          >Invalid end date</mat-error
+        >
+      </div>
+    </div>
   </div>
   <div class="btn-area">
     <button
@@ -51,6 +67,13 @@
     >
       <mat-icon>sort</mat-icon>Apply filter
     </button>
-    <button type="button" mat-raised-button color="accent" (click)="clearForm()">Clear filters</button>
+    <button
+      type="button"
+      mat-raised-button
+      color="accent"
+      (click)="clearForm()"
+    >
+      Clear filters
+    </button>
   </div>
 </form>

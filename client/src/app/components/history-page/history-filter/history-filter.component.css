@@ -1,11 +1,35 @@
+.inputs-container{
+  position: relative;
+  height: 90px;
+}
+
 .order-number-input {
   margin-right: 20px;
+  margin-bottom: 0;
 }
 
 .btn-area {
   padding: 10px;
+  margin-bottom: 20px;
 }
 
 .btn-area button {
   margin-right: 20px;
+}
+
+.errors-area {
+  position: static;
+  font-size: 12px;
+  margin-top: -20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.order-errors {
+  min-width: 240px;
+}
+
+.date-errors {
+  min-width: 240px;
 }

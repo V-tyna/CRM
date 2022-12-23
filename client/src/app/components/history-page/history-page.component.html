@@ -16,6 +16,7 @@
   </div>
   <div>
     <app-history-filter *ngIf="isFilterVisible" (onFilter)="applyFilter($event)"></app-history-filter>
+    <div *ngIf="noSuchOrder" class="no-order-block"> <p>Order with number {{orderNumber}} doesn't exist.</p> </div>
     <app-history-table [ordersHistory]="orders"></app-history-table>
     <div>
       <mat-paginator

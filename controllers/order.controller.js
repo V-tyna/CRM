@@ -18,16 +18,10 @@ module.exports = {
 
       // Queries for filter 'data end'. Search by orders made before query date.
       if (req.query.end) {
-        const end = req.query.end.split(' ').map(time => {
-          if (time === '00:00:00') {
-            time = '23:59:59';
-          } 
-            return time;
-        }).join(' ');
         if (!queryForFilters.date) {
           queryForFilters.date = {};
         } else {
-          queryForFilters.date['$lte']= end;
+          queryForFilters.date['$lte']= req.query.end;
         }
       }
 
