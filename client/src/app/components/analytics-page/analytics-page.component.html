@@ -15,14 +15,7 @@
     <div class="average">
       <h3>Average receipt: {{ average | currency }}</h3>
     </div>
-    <div class="diagram">
-      <h2>Income</h2>
-      <canvas #income></canvas>
-    </div>
-    <div class="diagram">
-      <h2>Orders</h2>
-      <canvas #orders></canvas>
-    </div>
+    <div id="chartContainer" style="height: 400px; min-width: 100%;"></div>
   </div>
 </div>
 <div class="loader" *ngIf="pending">

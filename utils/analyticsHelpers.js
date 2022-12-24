@@ -4,7 +4,7 @@ module.exports = {
 	getOrdersMap: function (orders = []) {
 		const daysOrders = {};
 		orders.forEach((order) => {
-			const date = moment(order.date).format('DD.MM.YYYY');
+			const date = moment(order.date).format('YYYY-MM-DD');
 
 			if (!daysOrders[date]) {
 				daysOrders[date] = [];

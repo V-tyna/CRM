@@ -1,29 +1,41 @@
-import { ChartType, ChartConfiguration, ChartData, DefaultDataPoint } from 'chart.js';
-import { ChartConfig } from '../models/analytics.model';
-
-
-export function createChartConfig({ labels, data, label, color }: ChartConfig): ChartConfiguration {
+export const chartOptions = (points0: never[], points1: never[]) => {
   return {
-    type: 'bar',
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
+    animationEnabled: true,
+    exportEnabled: true,
+    title: {
+      text: "Income and orders"
     },
-    data: {
-      labels,
-      datasets: [
-        {
-          label: label,
-          steppedLine: false,
-          data: data,
-          borderColor: color,
-          fill: false,
-          borderWidth: 1
-        }
-      ]
-    } as unknown as ChartData<ChartType, DefaultDataPoint<ChartType>, unknown>,
+    axisY: {
+      prefix: "$"
+    },
+    axisX:{
+      valueFormatString: "DD MMM" ,
+      labelAngle: -30
+  },
+    toolTip: {
+      shared: true,
+      content: "{name}: ${y}"
+    },
+    legend: {
+      fontSize: 13
+    },
+    data: [
+      {
+        type: "splineArea",
+        showInLegend: true,
+        name: "Income",
+        markerSize: 0,
+        color: "#3f51b5",
+        dataPoints: points0
+      },
+      {
+        type: "splineArea",
+        showInLegend: true,
+        name: "Orders",
+        markerSize: 0,
+        color: "#ff4081",
+        dataPoints: points1
+      }
+    ]
   }
 }

@@ -37,3 +37,13 @@
   margin: auto;
   max-width: 1000px;
 }
+
+.main, .diagram {
+  width: 1000px;
+  height: 400px;
+}
+
+.average h3 {
+  font-size: 1.5rem;
+  padding-bottom: 20px;
+}

@@ -19,6 +19,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import * as CanvasJSAngularChart from '../assets/canvasjs.angular.component';
+const CanvasJSChart = CanvasJSAngularChart.CanvasJSChart;
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,6 +50,7 @@ import { AuthInterceptorService } from './shared/services/auth-interceptor.servi
     AnalyticsPageComponent,
     AppComponent,
     AuthLayoutComponent,
+    CanvasJSChart,
     CategoriesPageComponent,
     CategoryFormPageComponent,
     ConfirmationDialogComponent,

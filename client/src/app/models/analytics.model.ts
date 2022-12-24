@@ -9,13 +9,6 @@ export interface AnalyticsChart {
   orders: number;
 }
 
-export interface ChartConfig {
-  label: string;
-  color: string;
-  labels?: string[];
-  data?: number[];
-}
-
 export interface Overview {
   income: OverviewData;
   orders: OverviewData;

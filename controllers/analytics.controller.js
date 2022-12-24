@@ -13,7 +13,7 @@ module.exports = {
 
 			const chart = Object.keys(ordersMap).map(label => {
 				//label example: '24.12.2022'
-				const income = calculatePrice(ordersMap[label]);
+				const income = +calculatePrice(ordersMap[label]).toFixed(2);
 				const orders = ordersMap[label].length;
 				return { income, label, orders }
 			});
@@ -30,7 +30,7 @@ module.exports = {
 				date: 1,
 			});
 			const ordersMap = getOrdersMap(allOrders);
-			const todayOrders = ordersMap[moment().format('DD.MM.YYYY')] || [];
+			const todayOrders = ordersMap[moment().format('YYYY-MM-DD')] || [];
 
 			// All today's orders quantity:
 			const totalTodayOrdersQuantity = todayOrders.length;

@@ -1,9 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { Chart } from 'chart.js';
 import { Subscription } from 'rxjs';
-import { Analytics, ChartConfig } from 'src/app/models/analytics.model';
+import { Analytics } from 'src/app/models/analytics.model';
 import { AnalyticsService } from 'src/app/shared/services/analytics.service';
-import { createChartConfig } from 'src/app/utils/diagramChartHelper';
+import  {chartOptions}  from 'src/app/utils/diagramChartHelper';
+import { CanvasJS } from 'src/assets/canvasjs.angular.component';
 
 @Component({
   selector: 'app-analytics-page',
@@ -11,41 +11,45 @@ import { createChartConfig } from 'src/app/utils/diagramChartHelper';
   styleUrls: ['./analytics-page.component.css']
 })
 export class AnalyticsPageComponent implements AfterViewInit, OnDestroy {
-  @ViewChild('income') incomeRef!: ElementRef;
-  @ViewChild('orders') ordersRef!: ElementRef;
-
+@ViewChild('chart') chartRef!: ElementRef;
   public analyticSub?: Subscription;
   public average?: number;
+  public chartOptions?: any;
+  public chart!: any;
   public pending = true;
+  private dataPoints0 = [];
+  private dataPoints1 = [];
 
   constructor(
     private analyticsService: AnalyticsService
   ) { }
 
+
   public ngAfterViewInit(): void {
-    const incomeConfig: ChartConfig = {
-      label: 'Income',
-      color: 'rgb(255, 99, 132)'
-    };
-
     this.analyticSub = this.analyticsService.getAnalytics().subscribe((data: Analytics) => {
-      incomeConfig.labels = data.chart.map(item => item.label);
-      incomeConfig.data = data.chart.map(item => item.income);
+      data.chart.map(item => {
+        this.dataPoints0.push( {x: new Date(item.label), y: item.income} as never)
+      })
 
-      const incomeCtx = this.incomeRef.nativeElement.getContext('2d');
-      incomeCtx.canvas.height = '300px';
-
-      // Chart.register();
-
-      // new Chart(incomeCtx, createChartConfig(incomeConfig))
-
+      data.chart.map(item => {
+        this.dataPoints1.push( {x: new Date(item.label), y: item.orders} as never)
+      })
+      this.chartOptions = chartOptions(this.dataPoints0, this.dataPoints1);
 
       this.average = data.average;
       this.pending = false;
+
+      const chart = new CanvasJS.Chart("chartContainer", this.chartOptions);
+
+      chart.render();
     });
   }
 
   public ngOnDestroy(): void {
     this.analyticSub?.unsubscribe();
+  }
+
+  public getChartInstance(chart: object) {
+    this.chart = chart;
   }
 }
