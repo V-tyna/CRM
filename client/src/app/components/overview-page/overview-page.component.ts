@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Overview } from 'src/app/models/overview.model';
-import { AnalyticsService } from 'src/app/shared/services/analtics.service';
+import { Overview } from 'src/app/models/analytics.model';
+import { AnalyticsService } from 'src/app/shared/services/analytics.service';
 
 @Component({
   selector: 'app-overview-page',

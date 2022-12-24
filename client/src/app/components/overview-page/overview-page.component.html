@@ -13,7 +13,7 @@
   <div class="cards" *ngIf="data$ | async as data; else loader">
     <div class="card card-income">
       <div class="text">Income:</div>
-      <div class="card-content">{{ data.income.today }}</div>
+      <div class="card-content">{{ data.income.today | currency }}</div>
       <div
         class="card-content"
         [ngClass]="{
