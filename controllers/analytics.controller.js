@@ -1,24 +1,39 @@
 const moment = require('moment');
 const Order = require('../models/order.model');
-const { getOrdersMap, calculatePrice } = require('../utils/analyticsHelpers');
+const { getOrdersMap, getPopularProducts, calculatePrice } = require('../utils/analyticsHelpers');
 const errorHandler = require('../utils/errorHandler');
 
 module.exports = {
 	analytics: async (req, res) => {
 		try {
-			const allOrders = await Order.find({ user: req.user.id }).sort({ data: 1 });
+			const allOrders = await Order.find({ user: req.user.id }).sort({
+				data: 1,
+			});
 			const ordersMap = getOrdersMap(allOrders);
+			const average = +(
+				calculatePrice(allOrders) / Object.keys(ordersMap).length
+			).toFixed(2);
 
-			const average = +(calculatePrice(allOrders) / Object.keys(ordersMap).length).toFixed(2);
-
-			const chart = Object.keys(ordersMap).map(label => {
+			const chart = Object.keys(ordersMap).map((label) => {
 				//label example: '24.12.2022'
 				const income = +calculatePrice(ordersMap[label]).toFixed(2);
 				const orders = ordersMap[label].length;
-				return { income, label, orders }
+				return { income, label, orders };
 			});
 
-			return res.status(200).json({ average, chart });
+			const popularProducts = getPopularProducts(allOrders);
+
+			const dateNow = new Date();
+			dateNow.setHours(00, 00, 00);
+			const dateStart = new Date(dateNow);
+
+			const todayOrders = allOrders.filter((order) => order.date > dateStart).map(order => {
+				const date = order.date;
+				const checkAmount = +order.list.reduce((acc, item) => acc += item.cost * item.quantity, 0).toFixed(2);
+				return { date, checkAmount }
+			});
+
+			return res.status(200).json({ average, chart, popularProducts, todayOrders });
 		} catch (e) {
 			errorHandler(res, e);
 		}

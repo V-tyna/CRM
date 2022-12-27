@@ -40,10 +40,44 @@
 
 .main, .diagram {
   width: 1000px;
-  height: 400px;
+  height: 460px;
+  margin-bottom: 20px;
 }
 
 .average h3 {
   font-size: 1.5rem;
   padding-bottom: 20px;
+}
+
+.currency {
+  font-weight: 500;
+  color: #ff4081;
+}
+
+.top-products {
+  margin-bottom: 20px;
+}
+
+.top-products h3 {
+  font-size: 1.5rem;
+  padding-top: 20px;
+  color: #3f51b5;
+  text-align: center;
+}
+
+.top-products li {
+  list-style-type: none;
+  font-size: 1rem;
+  margin-bottom: 5px;
+}
+
+ul li:first-child {
+  font-weight:500;
+  color: #ff4081;
+}
+
+.index {
+  font-size: 1rem;
+  font-weight:500;
+  color: #3f51b5;
 }

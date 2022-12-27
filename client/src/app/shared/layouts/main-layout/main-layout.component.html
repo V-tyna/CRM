@@ -47,7 +47,7 @@
           color="accent"
           class="add-btn"
         >
-          <mat-icon *ngIf="isOpenedIconMenu else buttonUp">keyboard_arrow_down</mat-icon>
+          <mat-icon>{{ isOpenedIconMenu ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</mat-icon>
         </button>
         <mat-menu
           #aboveMenu="matMenu"
@@ -66,6 +66,7 @@
               matTooltip="Make an order"
               matTooltipPosition="left"
               matTooltipHideDelay="200"
+              (click)="isOpenedIconMenu = false"
             >
               <mat-icon> fastfood</mat-icon>
             </button>
@@ -80,6 +81,7 @@
               matTooltip="Create new category"
               matTooltipPosition="left"
               matTooltipHideDelay="200"
+              (click)="isOpenedIconMenu = false"
             >
               <mat-icon> restaurant</mat-icon>
             </button>
@@ -90,4 +92,3 @@
   </mat-drawer-container>
 </div>
 
-<ng-template #buttonUp><mat-icon>keyboard_arrow_up</mat-icon></ng-template>

@@ -13,6 +13,15 @@ module.exports = {
 		});
 		return daysOrders;
 	},
+	getPopularProducts: function(orders = []) {
+		const popProds = {};
+		orders.forEach((order) => {
+			order.list.forEach((item) => {
+				popProds[item.name] = popProds[item.name] + item.quantity || item.quantity;
+			});
+		});
+		return Object.entries(popProds).sort((a, b) => b[1] - a[1]).slice(0, 5);
+	},
 	calculatePrice: function (orders = []) {
     return orders.reduce((total, order) => {
       const orderPrice = order.list.reduce((orderTotal, item) => {

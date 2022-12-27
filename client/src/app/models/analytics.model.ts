@@ -1,6 +1,8 @@
 export interface Analytics {
   average: number;
   chart: AnalyticsChart[];
+  popularProducts: [string, number][];
+  todayOrders: TodayOrder[];
 }
 
 export interface AnalyticsChart {
@@ -20,4 +22,9 @@ export interface OverviewData {
   perDay: number;
   percent: number;
   today: number;
+}
+
+export interface TodayOrder {
+  date: Date;
+  checkAmount: number;
 }

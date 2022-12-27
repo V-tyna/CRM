@@ -11,13 +11,28 @@
     </h1>
   </div>
 
-  <div class="main" [style.display]="pending ? 'none' : 'block'">
+  <div class="main">
     <div class="average">
-      <h3>Average receipt: {{ average | currency }}</h3>
+      <h3>
+        Average receipt: <span class="currency">{{ average | currency }}</span>
+      </h3>
     </div>
-    <div id="chartContainer" style="height: 400px; min-width: 100%;"></div>
+    <div id="chartContainer" style="min-width: 100%"></div>
   </div>
-</div>
-<div class="loader" *ngIf="pending">
-  <mat-spinner></mat-spinner>
+
+  <div class="top-products" *ngIf="popularProducts">
+    <h3>Top 5 products:</h3>
+    <ul>
+      <li *ngFor="let product of popularProducts; let i = index">
+        <span class="index">{{ i + 1 }}.</span> {{ product[0] }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <div id="dayAnalytics" style="min-width: 100%"></div>
+  </div>
+  <div class="loader" *ngIf="pending">
+    <mat-spinner></mat-spinner>
+  </div>
 </div>
