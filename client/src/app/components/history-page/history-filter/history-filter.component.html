@@ -14,7 +14,6 @@
           matStartDate
           formControlName="start"
           placeholder="Start date"
-          (change)="errors()"
         />
         <input matEndDate formControlName="end" placeholder="End date" />
       </mat-date-range-input>
@@ -54,9 +53,13 @@
   </div>
   <div class="btn-area">
     <button
+      #applyButton
       mat-raised-button
       type="submit"
-      color="primary"
+      [ngClass]="{
+        'applied': filterApplied,
+        'primary': !filterApplied
+      }"
       [disabled]="
         formFilter.invalid ||
         !(

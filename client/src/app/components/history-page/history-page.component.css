@@ -14,7 +14,7 @@
   margin: 20px;
 }
 
-.title-area  {
+.title-area {
   display: flex;
   flex-direction: row;
   text-align: center;
@@ -30,17 +30,38 @@
 }
 
 .no-order-block {
-    height: 40px;
-    align-self: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2rem;
-    color: #f44336;
+  height: 40px;
+  align-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  color: #f44336;
 }
 
 .no-order-block p {
   padding: 10px;
   background-color: #f4433628;
   border-radius: 10px;
+}
+
+.applied-filter-block {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+.applied-filter-block p {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.applied-filter {
+  border: 2px solid #72b53f;
+  border-radius: 5px;
+  width: 130px;
+  padding: 5px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  text-align: center;
 }

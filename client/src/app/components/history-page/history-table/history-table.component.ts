@@ -19,7 +19,6 @@ export class HistoryTableComponent {
   }
 
   public openOrderDetails(enterAnimationDuration: string, exitAnimationDuration: string, order: Order) {
-    console.log('Order details for open dialog: ', order);
     this.dialog.open(HistoryDialogComponent, {
       width: '600px',
       enterAnimationDuration,

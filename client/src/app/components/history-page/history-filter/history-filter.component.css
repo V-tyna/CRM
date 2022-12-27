@@ -33,3 +33,18 @@
 .date-errors {
   min-width: 240px;
 }
+
+.applied {
+  background-color: #72b53f;
+  color: #fff;
+}
+
+.primary:enabled {
+  background-color: #3f51b5;
+  color: #fff;
+}
+
+.primary:disabled {
+  background-color: #ccc;
+  color: rgb(109, 109, 109);
+}

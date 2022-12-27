@@ -4,6 +4,7 @@ const errorHandler = require('../utils/errorHandler');
 module.exports = {
   getAll: async (req, res) => {
     try {
+      let allOrdersLength;
       // GET http://localhost:4200/api/order?offset=2&limit=5 , req.query: offset and limit
       const queryForFilters = {
         user: req.user.id,
@@ -15,14 +16,19 @@ module.exports = {
           $gte: req.query.start,
           $lte: req.query.end
         }
+        allOrdersLength =  await Order.find(queryForFilters).count();
       }
 
       // Search by order number
       if(req.query.order) {
         queryForFilters.order = +req.query.order;
+        allOrdersLength = 1;
       }
 
-      const allOrdersLength = await Order.find().count();
+      if (!req.query.order && (!req.query.start && !req.query.end)) {
+        allOrdersLength = await Order.find().count();
+      }
+
       const orders = await Order
         .find(queryForFilters)
         .sort({ date: -1 })

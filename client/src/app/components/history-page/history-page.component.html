@@ -15,8 +15,19 @@
     </button>
   </div>
   <div>
-    <app-history-filter *ngIf="isFilterVisible" (onFilter)="applyFilter($event)"></app-history-filter>
-    <div *ngIf="noSuchOrder" class="no-order-block"> <p>Order with number {{orderNumber}} doesn't exist.</p> </div>
+    <app-history-filter
+      *ngIf="isFilterVisible"
+      (onFilter)="applyFilter($event)"
+    ></app-history-filter>
+    <div *ngIf="noSuchOrder" class="no-order-block">
+      <p>Order with number {{ orderNumber }} doesn't exist.</p>
+    </div>
+    <div *ngIf="filter.order || filter.start" class="applied-filter-block">
+      <p>Applied filter: </p>
+      <div class="applied-filter">
+        {{ filter.order ? "Order number" : "Date range" }}
+      </div>
+    </div>
     <app-history-table [ordersHistory]="orders"></app-history-table>
     <div>
       <mat-paginator

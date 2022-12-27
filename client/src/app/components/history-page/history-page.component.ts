@@ -44,7 +44,6 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
     this.filter = e;
     this.orderNumber = e.order;
     this.getOrders();
-    this.filter = {};
   }
 
   private getOrders() {
@@ -58,9 +57,7 @@ export class HistoryPageComponent implements OnInit, OnDestroy {
       next: (data) => {
         this.orders = data.orders;
         this.orderLength = +data.allOrdersLength;
-        if (this.orderNumber) {
-          this.noSuchOrder = +this.orderNumber > this.orderLength || +this.orderNumber < 1;
-        }
+        this.noSuchOrder = !data.orders.length;
       },
       error: (e) => this.popupService.showMessage(e.message),
       complete: () => this.disabled = false

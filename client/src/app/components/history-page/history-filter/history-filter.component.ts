@@ -9,6 +9,7 @@ import { Filter } from 'src/app/models/filter.model';
 })
 export class HistoryFilterComponent {
   @Output() onFilter = new EventEmitter<Filter>();
+  public filterApplied = false;
   public noData = true;
   public formFilter = new FormGroup({
     start: new FormControl<Date | null>(null),
@@ -16,15 +17,14 @@ export class HistoryFilterComponent {
     order: new FormControl<number | null>(null, [Validators.pattern("[0-9]+"), Validators.min(1)])
   });
 
-  public errors() {
-    console.log(this.formFilter.controls['start'].hasError('matDatepickerParse'))
-  }
-
   public clearForm() {
     this.formFilter.reset();
+    this.onFilter.emit({});
+    this.filterApplied = false;
   }
 
   public onSubmitFilter(): void {
+    this.filterApplied = true;
     let { end, start, order } = this.formFilter.value;
     if (order) {
       this.onFilter.emit({ order });
