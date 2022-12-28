@@ -3,6 +3,7 @@
 ### Tags:
 
 -   Angular
+-   Angular Material
 -   TypeScript
 -   JavaScrypt
 -   Node.js
@@ -10,7 +11,7 @@
 -   Mongo DB
 -   Mongoose
 -   REST API
--   Additionally: passport and jwt, middlewares, validations
+-   Additionally: passport, jwt, middlewares, validations, moment, multer, bcrypt, spa, CanvasJS, popups, guards, interceptor
 
 ## Screenshots:
 
