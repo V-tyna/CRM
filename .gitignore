@@ -1,2 +1,4 @@
 node_modules
 configs/keys.dev.js
+client/dist
+client/node_modules

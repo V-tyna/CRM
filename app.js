@@ -42,5 +42,5 @@ start();
 
 app.use(passport.initialize());
 passportMiddleware(passport);
-
+ 
 module.exports = app;
