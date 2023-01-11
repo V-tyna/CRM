@@ -1,8 +1,5 @@
-<h1 mat-dialog-title>Delete category</h1>
-<div mat-dialog-content>
-  {{data.message}}
-</div>
-<div mat-dialog-actions>
+<h1 mat-dialog-title>{{data.message}}</h1>
+<div class="btn-area" mat-dialog-actions>
   <button mat-button mat-dialog-close (click)="cancel()">Cancel</button>
   <button mat-button mat-dialog-close cdkFocusInitial (click)="confirmed()">Confirm</button>
 </div>

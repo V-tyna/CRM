@@ -11,7 +11,7 @@
 -   Mongo DB
 -   Mongoose
 -   REST API
--   Additionally: passport, jwt, middlewares, validations, moment, multer, bcrypt, spa, CanvasJS, popups, guards, interceptor
+-   Additionally: passport, jwt, middleware, validations, moment, multer, bcrypt, spa, CanvasJS, popups, guards, interceptor
 
 ## Screenshots:
 
@@ -21,7 +21,7 @@
 <img width="1000" src="https://user-images.githubusercontent.com/78938313/209842462-08c67dbe-3f98-4f52-b769-536490299047.JPG" />
 <img width="1000" src="https://user-images.githubusercontent.com/78938313/209842463-d79b6a05-c01a-41fe-8f5d-a92ea5b7d2ea.JPG" />
 <img width="1000" src="https://user-images.githubusercontent.com/78938313/209842464-75fb59a5-eb94-4340-8fd1-57da664ca92a.JPG" />
-<img width="1000" src="https://user-images.githubusercontent.com/78938313/209842466-3e94505d-a3c7-4923-aa19-5cfa82c16cca.JPG" />
+<img width="1000" src="https://user-images.githubusercontent.com/78938313/211792888-8e53d721-291a-4921-9b0d-15a18b36a0f8.JPG" />
 <img width="1000" src="https://user-images.githubusercontent.com/78938313/209842467-b9e30dd1-82f0-4b23-864f-0f51a8704e16.JPG" />
 <img width="1000" src="https://user-images.githubusercontent.com/78938313/209842468-d7cba34c-0570-4711-b1fc-9075f6b54052.JPG" />
 
